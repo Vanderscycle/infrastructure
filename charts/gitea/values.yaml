@@ -120,7 +120,6 @@ service:
     loadBalancerSourceRanges: []
     annotations: {}
 
-
 ## @section Ingress
 ## @param ingress.enabled Enable ingress
 ## @param ingress.className Ingress class name
@@ -134,11 +133,12 @@ ingress:
   enabled: false
   # className: nginx
   className:
-  annotations: {}
+  annotations:
+    {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: git.example.com
+    - host: http://localhost:3000 # TODO: git.example.com
       paths:
         - path: /
           pathType: Prefix
@@ -153,7 +153,8 @@ ingress:
 ## @section StatefulSet
 #
 ## @param resources Kubernetes resources
-resources: {}
+resources:
+  {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
@@ -188,7 +189,8 @@ dnsConfig: {}
 ## @param statefulset.labels Labels for the statefulset
 ## @param statefulset.annotations Annotations for the Gitea StatefulSet to be created
 statefulset:
-  env: []
+  env:
+    []
     # - name: VARIABLE
     #   value: my-value
   terminationGracePeriodSeconds: 60
@@ -281,7 +283,8 @@ gitea:
       #    prometheus-release: prom1
 
   ## @param gitea.ldap LDAP configuration
-  ldap: []
+  ldap:
+    []
     # - name: "LDAP 1"
     #  existingSecret:
     #  securityProtocol:
@@ -298,7 +301,8 @@ gitea:
 
   # Either specify inline `key` and `secret` or refer to them via `existingSecret`
   ## @param gitea.oauth OAuth configuration
-  oauth: []
+  oauth:
+    []
     # - name: 'OAuth 1'
     #   provider:
     #   key:

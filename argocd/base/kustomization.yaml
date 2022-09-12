@@ -6,5 +6,5 @@ namespace: argocd
 resources:
   - application-root.yaml
   - application-git.yaml
-  - application-ci.yaml
+  - application-cicd.yaml
   - application-projects.yaml
