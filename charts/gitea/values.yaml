@@ -266,6 +266,7 @@ gitea:
   ## @param gitea.admin.existingSecret Use an existing secret to store admin user credentials
   ## @param gitea.admin.password Password for the Gitea admin user
   ## @param gitea.admin.email Email for the Gitea admin user
+  # TODO: figure out auth and then ingress and how to store secrets.
   admin:
     #existingSecret: gitea-admin-secret
     existingSecret:
