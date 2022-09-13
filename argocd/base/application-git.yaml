@@ -11,7 +11,7 @@ spec:
     server: https://kubernetes.default.svc
   project: applications
   source:
-    path: argocd/apps/git
+    path: argocd/apps/git/overlays/non-prod/
     repoURL: git@github.com:Vanderscycle/infrastructure.git
     # repoURL: https://github.com/Vanderscycle/Professional-website.git
     targetRevision: main
