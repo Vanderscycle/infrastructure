@@ -11,7 +11,7 @@ spec:
     server: https://kubernetes.default.svc
   project: applications
   source:
-    path: argocd/
+    path: argocd/base
     repoURL: git@github.com:Vanderscycle/infrastructure.git
     targetRevision: main
   syncPolicy:
