@@ -35,16 +35,19 @@ server:
     name: ""
 
   # -- Annotations for the drone server pod
-  podAnnotations: {}
+  podAnnotations:
+    {}
     # prometheus.io/scrape: "true"
     # prometheus.io/port: "80"
 
   # -- Security context for all drone server pod
-  podSecurityContext: {}
+  podSecurityContext:
+    {}
     # fsGroup: 2000
 
   # -- Security context for the drone server container
-  securityContext: {}
+  securityContext:
+    {}
     # capabilities:
     #   drop:
     #   - ALL
@@ -66,7 +69,8 @@ server:
     # -- Specifies if you want to use different ingress controller for drone server
     className: ""
     # -- Additional drone server ingress annotations
-    annotations: {}
+    annotations:
+      {}
       # kubernetes.io/ingress.class: nginx
       # kubernetes.io/tls-acme: "true"
     hosts:
@@ -82,7 +86,8 @@ server:
     #      - chart-example.local
 
   # -- Set the drone server resources requests and limits
-  resources: {}
+  resources:
+    {}
     # We usually recommend not to specify default resources and to leave this as a conscious
     # choice for the user. This also increases chances charts run on environments with little
     # resources, such as Minikube. If you do want to specify resources, uncomment the following
@@ -111,7 +116,8 @@ server:
     DRONE_GIT_ALWAYS_AUTH: false
 
   # -- Drone server secrets
-  secrets: {}
+  secrets:
+    {}
     ## If you are going to store build secrets in the Drone database, it is suggested that
     ## you set a database encryption secret. This must be set before any secrets are stored
     ## in the database.
@@ -284,7 +290,8 @@ kubeRunner:
     name: ""
 
   # -- Annotations for the kube runner pod
-  podAnnotations: {}
+  podAnnotations:
+    {}
     # prometheus.io/scrape: "true"
     # prometheus.io/port: "80"
 
@@ -294,11 +301,13 @@ kubeRunner:
   terminationGracePeriodSeconds: 3600
 
   # -- Security context for all kube runner pod
-  podSecurityContext: {}
+  podSecurityContext:
+    {}
     # fsGroup: 2000
 
   # -- Security context for the kube runner container
-  securityContext: {}
+  securityContext:
+    {}
     # capabilities:
     #   drop:
     #   - ALL
@@ -320,7 +329,8 @@ kubeRunner:
     # -- Specifies if you want to use different ingress controller for kube runner
     className: ""
     # -- Additional kube runner ingress annotations
-    annotations: {}
+    annotations:
+      {}
       # kubernetes.io/ingress.class: nginx
       # kubernetes.io/tls-acme: "true"
     hosts:
@@ -336,7 +346,8 @@ kubeRunner:
     #      - chart-example.local
 
   # -- Set the kube runner resources requests and limits
-  resources: {}
+  resources:
+    {}
     # We usually recommend not to specify default resources and to leave this as a conscious
     # choice for the user. This also increases chances charts run on environments with little
     # resources, such as Minikube. If you do want to specify resources, uncomment the following
@@ -380,7 +391,7 @@ kubeRunner:
   # namespaces.
   rbac:
     buildNamespaces:
-      - default
+      - cicd
 
   ## The keys within the "envs" map are mounted as environment variables on the Kubernetes runner pod.
   ## See the full reference of Kubernetes runner environment variables here:
@@ -392,4 +403,4 @@ kubeRunner:
 
     # -- Determines the default Kubernetes namespace for Drone builds to run in.
     # Ref: https://docs.drone.io/runner/kubernetes/configuration/reference/drone-namespace-default/
-    DRONE_NAMESPACE_DEFAULT: default
+    DRONE_NAMESPACE_DEFAULT: cicd

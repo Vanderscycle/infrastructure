@@ -15,5 +15,7 @@ spec:
   destinations:
     - namespace: cicd
       server: https://kubernetes.default.svc
+    - namespace: kube-system
+      server: https://kubernetes.default.svc
   sourceRepos:
     - git@github.com:Vanderscycle/infrastructure.git
