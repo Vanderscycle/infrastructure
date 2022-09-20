@@ -269,7 +269,7 @@ gitea:
   # TODO: figure out auth and then ingress and how to store secrets.
   admin:
     #existingSecret: gitea-admin-secret
-    existingSecret:
+    existingSecret: true
     username: gitea_admin
     password: r8sA8CPHD9!bt6d
     email: "gitea@local.domain"

@@ -172,12 +172,12 @@ spec:
               valueFrom:
                 secretKeyRef:
                   key:  username
-                  name: gitea-secret # {{ .Values.gitea.admin.existingSecret }}
+                  name: gitea-secret ## {{ .Values.gitea.admin.existingSecret }}
             - name: GITEA_ADMIN_PASSWORD
               valueFrom:
                 secretKeyRef:
                   key:  password
-                  name: gitea-secret # {{ .Values.gitea.admin.existingSecret }}
+                  name: gitea-secret ## {{ .Values.gitea.admin.existingSecret }}
             {{- else }}
             - name: GITEA_ADMIN_USERNAME
               value: {{ .Values.gitea.admin.username | quote }}
