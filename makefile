@@ -8,8 +8,8 @@ localhost:
 	kubectl port-forward svc/gitea-http -n git 3000:3000 & disown
 
 connect: # Not working
-	export KUBECONFIG=~/Documents/infrastructure/Infrastructure-kubeconfig.yaml
-	# kubectl get node
+	export KUBECONFIG="${HOME}"/Documents/infrastructure/Infrastructure-kubeconfig.yaml
+	# export KUBECONFIG=$HOME/Documents/infrastructure/Infrastructure-kubeconfig.yaml  
 
 login:
 	bash ./localhost/argocd-login.sh
