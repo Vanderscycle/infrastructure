@@ -10,7 +10,7 @@ spec:
     server: https://kubernetes.default.svc
   project: git
   source:
-    path: charts/gitea
+    path: charts/gitea-kustomize
     repoURL: git@github.com:Vanderscycle/infrastructure.git
     targetRevision: main
   syncPolicy:

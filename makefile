@@ -7,10 +7,9 @@ localhost:
 	kubectl port-forward svc/argocd-server -n argocd 8080:443  & disown
 	kubectl port-forward svc/gitea-http -n git 3000:3000 & disown
 
-connect:
-	export KUBECONFIG=Infrastructure-kubeconfig.yaml
-	# set -xg KUBECONFIG Infrastructure-kubeconfig.yaml
-	kubectl get node
+connect: # Not working
+	export KUBECONFIG=~/Documents/infrastructure/Infrastructure-kubeconfig.yaml
+	# kubectl get node
 
 login:
 	bash ./localhost/argocd-login.sh
