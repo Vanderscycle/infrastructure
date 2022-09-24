@@ -9,3 +9,4 @@ resources:
   - application-cicd.yaml
   - application-secrets.yaml
   - application-projects.yaml
+  - application-argocd-plugins.yaml
