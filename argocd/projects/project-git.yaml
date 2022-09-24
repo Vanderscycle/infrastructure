@@ -12,9 +12,9 @@ spec:
     - group: "*"
       kind: "*"
 
-  source:
-    plugin:
-      name: kustomize-build-with-helm
+  # source:
+  #   plugin:
+  #     name: kustomize-build-with-helm
 
   destinations:
     - namespace: git
