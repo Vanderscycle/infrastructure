@@ -1,12 +1,13 @@
 #!/bin/bash
 
 # login
+source .env
 KEY_PATH="$HOME/.ssh/endeavourGit"
 TEMP_PASS=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo)
 echo -e "$TEMP_PASS"
 argocd login \
   --password "$TEMP_PASS" \
-  --username admin localhost:8080
+  --username admin "$NODE_BALANCE_IP"
 # adds the relevant repo
 argocd repo add git@github.com:Vanderscycle/infrastructure.git \
   --ssh-private-key-path "$KEY_PATH" \
