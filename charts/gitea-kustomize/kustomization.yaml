@@ -5,7 +5,6 @@ kind: Kustomization
 resources:
   - secrets/
   - namespace.yaml
-  - argocd-kustomize-options.yaml
 
 helmChartInflationGenerator:
   - chartName: gitea
