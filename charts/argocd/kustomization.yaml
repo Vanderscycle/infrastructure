@@ -7,4 +7,5 @@ kind: Kustomization
 resources:
   - argocd-kustomize-options.yaml
   - namespace.yaml
+  - configs/
   - https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
