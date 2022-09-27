@@ -4,7 +4,7 @@ kind: Kustomization
 
 resources:
   - secrets/
-  # - argocd-kustomize-options.yaml
+  - argocd-kustomize-options.yaml
   - namespace.yaml
 
 helmChartInflationGenerator:
