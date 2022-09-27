@@ -1,0 +1,16 @@
+# https://fabianlee.org/2022/04/18/kubernetes-kustomize-with-helm-charts/
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - argocd-kustomize-options.yaml
+
+helmChartInflationGenerator:
+  - chartName: argocd
+    chartRepoUrl: https://argoproj.github.io/argo-helm
+    chartVersion: 5.5.5
+    releaseName: argocd
+    # override with these custom values
+    # values: values.yaml
+
+namespace: argocd
