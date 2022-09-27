@@ -5,6 +5,6 @@ kind: Kustomization
 namespace: argocd
 
 resources:
-  - argocd-kustomize-option.yaml
+  - argocd-kustomize-options.yaml
   - namespace.yaml
   - https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
