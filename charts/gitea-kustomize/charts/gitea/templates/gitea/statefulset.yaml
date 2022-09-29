@@ -112,6 +112,7 @@ spec:
             {{- toYaml .Values.containerSecurityContext | nindent 12 }}
         - name: configure-gitea
           image: "{{ include "gitea.image" . }}"
+          # command: ["/bin/sh -c 'sleep infinity"]
           command: ["/usr/sbin/configure_gitea.sh"]
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           securityContext:
