@@ -15,3 +15,5 @@ spec:
   namespaceResourceWhitelist:
     - group: "argoproj.io"
       kind: Application
+    - group: "argoproj.io"
+      kind: configMap
