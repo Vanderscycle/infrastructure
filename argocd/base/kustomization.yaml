@@ -5,8 +5,12 @@ namespace: argocd
 
 resources:
   - application-root.yaml
-  - application-git.yaml
+  # - application-git.yaml
   - application-argocd.yaml
-  # - application-cicd.yaml
+  - application-cicd.yaml
   - application-secrets.yaml
   - application-projects.yaml
+configMapGenerator:
+  - name: argocd-cm
+    literals:
+      - kustomize.buildOptions="--enable-helm --load-restrictor LoadRestrictionsNone"

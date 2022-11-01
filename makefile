@@ -8,7 +8,7 @@ install:
 	bash ./localhost/argocd-login.sh
 
 purge: 
- 	kind delete clusters infrastructure-localhost
+	kind delete clusters infrastructure-localhost
 
 activate:
 	kubectl apply -k ./argocd/overlays/dev
@@ -19,7 +19,7 @@ secret:
 	kubectl apply -k ./charts/gitea-kustomize/secrets/
 
 localhost:
-	kubectl port-forward svc/argocd-server -n argocd 8080:443  & disown
+	kubectl port-forward svc/argocd-server -n argocd 8080:443 & disown
 	# kubectl port-forward svc/gitea-http -n git 3000:3000 & disown
 
 connect: # Not working

@@ -3,7 +3,7 @@ argo-cd:
     enabled: false
   server:
     extraArgs:
-      - --insercure
+      - --insecure
     config:
       repositories: |
         - type: helm
