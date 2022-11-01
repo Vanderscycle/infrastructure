@@ -11,14 +11,20 @@ resources:
   # 'helm pull --untar --untardir /home/henri/Documents/infrastructure/charts/argocd/charts --repo https://argoproj.github.io/argo-helm argocd --version 5.5.5'
   # helm pull argo/argo-cd --untar --untardir /home/henri/Documents/infrastructure/charts/argocd/charts  argo --version ^5.0.0
 helmChartInflationGenerator: # all that it does is a helm pull
-  - chartName: argo/argo-cd
+  - chartName: argo
     chartRepoUrl: https://argoproj.github.io/argo-helm
     chartVersion: ^5.0.0
     releaseName: argo
     releaseNamespace: argocd
+    values: values.yaml
 # override with these custom values
-# values: values.yaml
 
+helmCharts:
+  - name: argo
+    repo: https://argoproj.github.io/argo-helm
+    version: 5.12.0
+    releaseName: argo
+    namespace: argocd
 configMapGenerator:
   - name: argocd-cm
     literals:

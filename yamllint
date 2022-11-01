@@ -1,4 +1,4 @@
-# https://yamllint.readthedocs.io/en/stable/configuration.html
+#https://yamllint.readthedocs.io/en/stable/configuration.html
 extends: default
 
 rules:
@@ -7,3 +7,6 @@ rules:
     min-spaces-from-content: 1
   document-start:
     present: false
+ignore: |
+  /node_modules/
+  /openApi/
