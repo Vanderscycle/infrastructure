@@ -4,6 +4,6 @@ kind: Kustomization
 resources:
   - project-cicd.yaml
   - project-argocd.yaml
-  - project-git.yaml
+  # - project-git.yaml
   - project-secrets.yaml
   - project-applications.yaml

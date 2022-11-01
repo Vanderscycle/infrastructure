@@ -8,7 +8,15 @@ install:
 	bash ./localhost/argocd-login.sh
 
 purge: 
-	kind delete clusters infrastructure-localhost
+ 	kind delete clusters infrastructure-localhost
+
+activate:
+	kubectl apply -k ./argocd/overlays/dev
+
+secret:
+	kubeseal --fetch-cert > kubeseal-public.pem
+	kubeseal --cert kubeseal-public.pem -f ./charts/gitea-kustomize/secrets/secret.yaml -o yaml > ./charts/gitea-kustomize/secrets/sealed-secret.yaml
+	kubectl apply -k ./charts/gitea-kustomize/secrets/
 
 localhost:
 	kubectl port-forward svc/argocd-server -n argocd 8080:443  & disown
@@ -17,6 +25,3 @@ localhost:
 connect: # Not working
 	export KUBECONFIG="${HOME}"/Documents/infrastructure/Infrastructure-kubeconfig.yaml
 	# export KUBECONFIG=$HOME/Documents/infrastructure/Infrastructure-kubeconfig.yaml  
-
-login:
-	bash ./localhost/argocd-login.sh
