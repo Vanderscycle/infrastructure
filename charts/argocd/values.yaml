@@ -4,7 +4,9 @@ argo-cd:
   server:
     extraArgs:
       - --insecure
-    config:
+    configs:
+      cm:
+        kustomize.buildOptions: --enable-helm --load_restrictor none
       repositories: |
         - type: helm
           name: argo-cd
