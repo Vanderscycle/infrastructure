@@ -4,19 +4,19 @@ kind: Kustomization
 namespace:
   vault
   # https://kubectl.docs.kubernetes.io/references/kustomize/builtins/#_helmchartinflationgenerator_
-helmChartInflationGenerator:
-  - chartName: consul
-    chartRepoUrl: https://helm.releases.hashicorp.com
-    chartVersion: 1.0.0-beta5
-    releaseName: consul
-    releaseNamespace: vault
-    values: values.yaml
-    includeCRDs: true
-# https://cloud.google.com/anthos-config-management/docs/how-to/use-repo-kustomize-helm#automatically_render_helm_charts
-# helmCharts:
-#   - name: consul
-#     repo: https://helm.releases.hashicorp.com
+# helmChartInflationGenerator:
+#   - chartName: consul
+#     chartRepoUrl: https://helm.releases.hashicorp.com
+#     chartVersion: 1.0.0-beta5
+#     releaseName: consul
+#     releaseNamespace: vault
+#     values: values.yaml
 #     includeCRDs: true
-#     valuesFile: values.yaml
-#     version: 1.0.0-beta5
-#     namespace: vault
+# https://cloud.google.com/anthos-config-management/docs/how-to/use-repo-kustomize-helm#automatically_render_helm_charts
+helmCharts:
+  - name: consul
+    repo: https://helm.releases.hashicorp.com
+    includeCRDs: true
+    valuesFile: values.yaml
+    version: 1.0.0-beta5
+    namespace: vault
