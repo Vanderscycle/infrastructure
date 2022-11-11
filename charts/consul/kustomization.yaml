@@ -8,5 +8,6 @@ helmChartInflationGenerator:
     chartRepoUrl: https://helm.releases.hashicorp.com
     chartVersion: 1.0.0-beta5
     releaseName: consul
+    releaseNamespace: vault
     # override with these custom values
     values: values.yaml
