@@ -11,7 +11,7 @@ resources:
   - application-vault.yaml
   - application-secrets.yaml
   - application-projects.yaml
-configMapGenerator:
-  - name: argocd-cm
-    literals:
-      - kustomize.buildOptions="--enable-helm --load-restrictor LoadRestrictionsNone"
+# configMapGenerator:
+#   - name: argocd-cm
+#     literals:
+#       - kustomize.buildOptions="--enable-helm --load-restrictor LoadRestrictionsNone"
