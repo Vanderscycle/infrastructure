@@ -11,3 +11,4 @@ helmChartInflationGenerator:
     releaseNamespace: vault
     # override with these custom values
     values: values.yaml
+    includeCRDs: true
