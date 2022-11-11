@@ -11,9 +11,8 @@ helmChartInflationGenerator:
     releaseName: consul
     releaseNamespace: vault
     values: values.yaml
-    IncludeCRDs:
-      true
-      # https://cloud.google.com/anthos-config-management/docs/how-to/use-repo-kustomize-helm#automatically_render_helm_charts
+    includeCRDs: true
+# https://cloud.google.com/anthos-config-management/docs/how-to/use-repo-kustomize-helm#automatically_render_helm_charts
 # helmCharts:
 #   - name: consul
 #     repo: https://helm.releases.hashicorp.com
