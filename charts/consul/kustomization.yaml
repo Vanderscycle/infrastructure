@@ -4,5 +4,4 @@ kind: Kustomization
 namespace: vault
 
 resources:
-  - Chart.yaml
-  - values.yaml
+  - ../consul
