@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # activating the server
-# kubectl port-forward svc/argocd-server -n argocd 8080:443  & disown
+kubectl port-forward svc/argocd-server -n argocd 8080:443  & disown
 
 # login
 NODE_BALANCE_IP="localhost:8080"

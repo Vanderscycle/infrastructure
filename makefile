@@ -1,6 +1,8 @@
-install:
+install-kind:
 	kind create cluster --config ./localhost/kind.yaml
 	kubectl cluster-info -- context kind-infrastructure-localhost
+
+install-argo:
 	helm repo add argo https://argoproj.github.io/argo-helm
 	helm install argocd argo/argo-cd --version 5.12.2 --namespace argocd --create-namespace --values ./charts/argocd/values.yaml
 	# kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
