@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: vault
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: Infrastructure declarative config for secrets
+  clusterResourceWhitelist:
+    - group: "*"
+      kind: "*"
+
+  destinations:
+    - namespace: vault
+      server: https://kubernetes.default.svc
+    - namespace: consul
+      server: https://kubernetes.default.svc
+    - namespace: kube-system
+      server: https://kubernetes.default.svc
+  sourceRepos:
+    - git@github.com:Vanderscycle/infrastructure.git
+    - https://helm.releases.hashicorp.com/
+    - https://github.com/hashicorp/consul
+    - https://github.com/hashicorp/consul-k8s

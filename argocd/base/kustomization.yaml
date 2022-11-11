@@ -8,6 +8,7 @@ resources:
   # - application-git.yaml
   # - application-argocd.yaml
   - application-cicd.yaml
+  - application-vault.yaml
   - application-secrets.yaml
   - application-projects.yaml
 configMapGenerator:
