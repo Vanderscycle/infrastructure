@@ -3,5 +3,10 @@ kind: Kustomization
 
 namespace: vault
 
-resources:
-  - ../consul
+helmChartInflationGenerator:
+  - chartName: consul
+    chartRepoUrl: https://helm.releases.hashicorp.com
+    chartVersion: 1.0.0-beta5
+    releaseName: consul
+    # override with these custom values
+    values: values.yaml
