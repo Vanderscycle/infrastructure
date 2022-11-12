@@ -12,6 +12,7 @@ spec:
   source:
     path: charts/consul
     repoURL: git@github.com:Vanderscycle/infrastructure.git
+    chart: consul
     targetRevision: main
   syncPolicy:
     automated:
