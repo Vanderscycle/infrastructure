@@ -10,10 +10,17 @@ spec:
     server: https://kubernetes.default.svc
   project: vault
   source:
-    path: charts/consul
-    repoURL: git@github.com:Vanderscycle/infrastructure.git
     chart: consul
-    targetRevision: main
+    repoURL: https://helm.releases.hashicorp.com
+    targetRevision: 0.49.0
+    helm:
+      releaseName: consul
+      valuesFile: charts/consul/values.yaml
+  # source:
+  #   path: charts/consul
+  #   repoURL: git@github.com:Vanderscycle/infrastructure.git
+  #   chart: consul
+  #   targetRevision: main
   syncPolicy:
     automated:
       prune: true
