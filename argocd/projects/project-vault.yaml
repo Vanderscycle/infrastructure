@@ -6,11 +6,10 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  description: Infrastructure declarative config for secrets
+  description: Infrastructure declarative config for vault
   clusterResourceWhitelist:
     - group: "*"
       kind: "*"
-
   destinations:
     - namespace: vault
       server: https://kubernetes.default.svc
@@ -20,6 +19,6 @@ spec:
       server: https://kubernetes.default.svc
   sourceRepos:
     - git@github.com:Vanderscycle/infrastructure.git
-    - https://helm.releases.hashicorp.com/
     - https://github.com/hashicorp/consul
     - https://github.com/hashicorp/consul-k8s
+      https://helm.releases.hashicorp.com/
