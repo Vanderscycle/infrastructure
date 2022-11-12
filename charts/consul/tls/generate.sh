@@ -21,3 +21,5 @@ cfssl gencert \
   ca-csr.json | cfssljson -bare /tmp/vault
 
 # moving all the files back to our drive
+mv /tmp/*
+
