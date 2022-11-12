@@ -21,4 +21,4 @@ spec:
     - git@github.com:Vanderscycle/infrastructure.git
     - https://github.com/hashicorp/consul
     - https://github.com/hashicorp/consul-k8s
-      https://helm.releases.hashicorp.com/
+    - https://helm.releases.hashicorp.com/
