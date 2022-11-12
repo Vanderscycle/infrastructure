@@ -22,6 +22,7 @@ secret:
 
 localhost:
 	kubectl port-forward svc/argocd-server -n argocd 8080:443 & disown
+	kubectl port-forward svc/consul-consul-server -n vault 8500:8500 & disown
 	# kubectl port-forward svc/gitea-http -n git 3000:3000 & disown
 
 connect: # Not working

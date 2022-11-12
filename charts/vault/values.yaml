@@ -8,7 +8,7 @@ injector:
   # Use the Vault K8s Image https://github.com/hashicorp/vault-k8s/
   image:
     repository: "hashicorp/vault-k8s"
-    tag: "0.14.1"
+    tag: "1.0"
 
   resources:
     requests:
@@ -21,7 +21,7 @@ injector:
 server:
   image:
     repository: "hashicorp/vault"
-    tag: "1.9.2"
+    tag: "1.12"
 
   # These Resource Limits are in line with node requirements in the
   # Vault Reference Architecture for a Small Cluster
