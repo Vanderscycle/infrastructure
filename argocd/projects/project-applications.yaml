@@ -6,9 +6,7 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  description: Project for parent applicatons used when employing app of apps pattern
-  sourceRepos:
-    - git@github.com:Vanderscycle/infrastructure.git
+  description: Project for parent applicatons used when employing app of apps
   destinations:
     - namespace: argocd
       server: https://kubernetes.default.svc
@@ -18,3 +16,5 @@ spec:
   namespaceResourceWhitelist:
     - group: "argoproj.io"
       kind: Application
+  sourceRepos:
+    - git@github.com:Vanderscycle/infrastructure.git

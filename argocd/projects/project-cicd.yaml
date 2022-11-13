@@ -7,14 +7,13 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   description: Infrastructure declarative config for drone ci
-  clusterResourceWhitelist:
-    - group: "*"
-      kind: "*"
-
   destinations:
     - namespace: cicd
       server: https://kubernetes.default.svc
     - namespace: kube-system
       server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+    - group: "*"
+      kind: "*"
   sourceRepos:
     - git@github.com:Vanderscycle/infrastructure.git
