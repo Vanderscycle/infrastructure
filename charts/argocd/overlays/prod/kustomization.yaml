@@ -1,9 +1,12 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
+namespace: argocd
+
 resources:
   - ../../base
 
+# kustomize.buildOptions is not present but this way we can add
 patches:
   - target:
       kind: ConfigMap
@@ -12,3 +15,10 @@ patches:
       - op: add
         path: /data/kustomize.buildOptions
         value: ": --load-restrictor LoadRestrictionsNone --enable-helm"
+  - target:
+      kind: Service
+      name: argo-argocd-server
+    patch: |-
+      - op: replace
+        path: /spec/type
+        value: "LoadBalancer"
