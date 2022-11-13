@@ -3,4 +3,12 @@ kind: Kustomization
 
 resources:
   - ../../base
-  # - ./configs
+
+patches:
+  - target:
+      kind: Application
+      name: .*
+    patch: |-
+      - op: replace
+        path: /spec/source/targetRevision
+        value: dev
