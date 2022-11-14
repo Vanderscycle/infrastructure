@@ -102,7 +102,7 @@ server:
   env:
     # -- REQUIRED: Set the user-visible Drone hostname, sans protocol.
     # Ref: https://docs.drone.io/server/reference/drone-server-host/
-    DRONE_SERVER_HOST: "104.200.26.4"
+    DRONE_SERVER_HOST: "drone.example.com" #
     # -- The protocol to pair with the value in DRONE_SERVER_HOST (http or https).
     # Ref: https://docs.drone.io/server/reference/drone-server-proto/
     DRONE_SERVER_PROTO: https
@@ -334,7 +334,7 @@ kubeRunner:
       # kubernetes.io/ingress.class: nginx
       # kubernetes.io/tls-acme: "true"
     hosts:
-      - host: 104.200.26.4
+      - host: chart-example.local
         paths:
           - path: /
             # -- Kube runner ingress path type
