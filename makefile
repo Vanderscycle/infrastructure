@@ -21,8 +21,8 @@ activate:
 
 secret:
 	kubeseal --fetch-cert > kubeseal-public.pem
-	kubeseal --cert kubeseal-public.pem -f ./charts/gitea-kustomize/secrets/secret.yaml -o yaml > ./charts/gitea-kustomize/secrets/sealed-secret.yaml
-	kubectl apply -k ./charts/gitea-kustomize/secrets/
+	kubeseal --cert kubeseal-public.pem -f ./charts/cicd/secrets/secret.yaml -o yaml > ./charts/cicd/secrets/sealed-secret.yaml
+	kubectl apply -k ./charts/cicd/secrets/
 
 localhost:
 	kubectl port-forward svc/argocd-server -n argocd 8080:443 & disown
