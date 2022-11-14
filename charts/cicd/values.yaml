@@ -117,7 +117,7 @@ server:
 
   # -- Drone server secrets
   secrets:
-    {}
+    { DRONE_GITHUB_CLIENT_ID: "", DRONE_GITHUB_CLIENT_SECRET: "" }
     ## If you are going to store build secrets in the Drone database, it is suggested that
     ## you set a database encryption secret. This must be set before any secrets are stored
     ## in the database.
@@ -173,7 +173,7 @@ server:
     # DRONE_STASH_SERVER:
 
     ## Gitee-specific variables. See the provider docs here:
-    ## Ref: https://docs.drone.io/server/provider/gitee/
+    ## Ref: https://docs.dsrone.io/server/provider/gitee/
     ##
     # DRONE_GITEE_CLIENT_ID:
     # DRONE_GITEE_CLIENT_SECRET:
@@ -399,7 +399,7 @@ kubeRunner:
   env:
     # -- The protocol to use for communication with Drone server.
     # Ref: https://docs.drone.io/runner/kubernetes/configuration/reference/drone-rpc-proto/
-    DRONE_RPC_PROTO: http
+    DRONE_RPC_PROTO: https
 
     # -- Determines the default Kubernetes namespace for Drone builds to run in.
     # Ref: https://docs.drone.io/runner/kubernetes/configuration/reference/drone-namespace-default/
