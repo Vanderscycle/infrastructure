@@ -104,7 +104,7 @@ sources:
 ## Available providers are:
 ## - akamai, alibabacloud, aws, azure, azure-private-dns, cloudflare, coredns, designate, digitalocean, google, hetzner, infoblox, linode, rfc2136, transip, oci
 ##
-provider: aws
+provider: linode
 ## @param initContainers Attach additional init containers to the pod (evaluated as a template)
 ##
 initContainers: []
@@ -451,7 +451,7 @@ infoblox:
 linode:
   ## @param linode.apiToken When using the Linode provider, `LINODE_TOKEN` to set (optional)
   ##
-  apiToken: ""
+  apiToken: " "
   ## @param linode.secretName Use an existing secret with key "linode_api_token" defined.
   ## This ignores linode.apiToken
   ##

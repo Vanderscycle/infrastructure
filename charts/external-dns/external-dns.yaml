@@ -5,7 +5,7 @@ kind: ServiceAccount
 metadata:
   name: external-dns
   namespace: "dns"
-  labels: 
+  labels:
     app.kubernetes.io/name: external-dns
     helm.sh/chart: external-dns-6.11.3
     app.kubernetes.io/instance: external-dns
@@ -13,13 +13,29 @@ metadata:
   annotations:
 automountServiceAccountToken: true
 ---
+# Source: external-dns/templates/secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: external-dns
+  namespace: "dns"
+  labels:
+    app.kubernetes.io/name: external-dns
+    helm.sh/chart: external-dns-6.11.3
+    app.kubernetes.io/instance: external-dns
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+type: Opaque
+data:
+  linode_api_token: "IA=="
+---
 # Source: external-dns/templates/clusterrole.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: external-dns-dns
   namespace: "dns"
-  labels: 
+  labels:
     app.kubernetes.io/name: external-dns
     helm.sh/chart: external-dns-6.11.3
     app.kubernetes.io/instance: external-dns
@@ -112,7 +128,7 @@ kind: ClusterRoleBinding
 metadata:
   name: external-dns-dns
   namespace: "dns"
-  labels: 
+  labels:
     app.kubernetes.io/name: external-dns
     helm.sh/chart: external-dns-6.11.3
     app.kubernetes.io/instance: external-dns
@@ -132,7 +148,7 @@ kind: Service
 metadata:
   name: external-dns
   namespace: "dns"
-  labels: 
+  labels:
     app.kubernetes.io/name: external-dns
     helm.sh/chart: external-dns-6.11.3
     app.kubernetes.io/instance: external-dns
@@ -145,7 +161,7 @@ spec:
       port: 7979
       protocol: TCP
       targetPort: http
-  selector: 
+  selector:
     app.kubernetes.io/name: external-dns
     app.kubernetes.io/instance: external-dns
 ---
@@ -155,7 +171,7 @@ kind: Deployment
 metadata:
   name: external-dns
   namespace: "dns"
-  labels: 
+  labels:
     app.kubernetes.io/name: external-dns
     helm.sh/chart: external-dns-6.11.3
     app.kubernetes.io/instance: external-dns
@@ -163,25 +179,25 @@ metadata:
 spec:
   replicas: 1
   selector:
-    matchLabels: 
+    matchLabels:
       app.kubernetes.io/name: external-dns
       app.kubernetes.io/instance: external-dns
   template:
     metadata:
-      labels: 
+      labels:
         app.kubernetes.io/name: external-dns
         helm.sh/chart: external-dns-6.11.3
         app.kubernetes.io/instance: external-dns
         app.kubernetes.io/managed-by: Helm
       annotations:
+        checksum/secret: b452b288cf0b82ce84daf95bad29cb3ea11ca54fbd61b895f31443a2e8d68811
     spec:
-      
       securityContext:
         fsGroup: 1001
         runAsUser: 1001
       affinity:
         podAffinity:
-          
+
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
             - podAffinityTerm:
@@ -194,7 +210,7 @@ spec:
                 topologyKey: kubernetes.io/hostname
               weight: 1
         nodeAffinity:
-          
+
       serviceAccountName: external-dns
       containers:
         - name: external-dns
@@ -206,19 +222,18 @@ spec:
             - --log-level=info
             - --log-format=text
             - --policy=upsert-only
-            - --provider=aws
+            - --provider=linode
             - --registry=txt
             - --interval=1m
             - --source=service
             - --source=ingress
-            # AWS arguments
-            - --aws-api-retries=3
-            - --aws-zone-type=
-            - --aws-batch-change-size=1000
           env:
-            # AWS environment variables
-            - name: AWS_DEFAULT_REGION
-              value: us-east-1
+            # Linode environment variables
+            - name: LINODE_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: external-dns-linode-secret
+                  key: API_TOKEN
           envFrom:
           ports:
             - name: http
