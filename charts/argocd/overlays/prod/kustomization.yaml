@@ -14,7 +14,7 @@ patches:
     patch: |-
       - op: add
         path: /data/kustomize.buildOptions
-        value: ": --load-restrictor LoadRestrictionsNone --enable-helm"
+        value: "--load-restrictor LoadRestrictionsNone --enable-helm"
   - target:
       kind: Service
       name: argo-argocd-server
