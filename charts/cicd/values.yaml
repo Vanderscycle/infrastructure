@@ -102,10 +102,10 @@ server:
   env:
     # -- REQUIRED: Set the user-visible Drone hostname, sans protocol.
     # Ref: https://docs.drone.io/server/reference/drone-server-host/
-    DRONE_SERVER_HOST: "drone.example.com"
+    DRONE_SERVER_HOST: "104.200.26.4"
     # -- The protocol to pair with the value in DRONE_SERVER_HOST (http or https).
     # Ref: https://docs.drone.io/server/reference/drone-server-proto/
-    DRONE_SERVER_PROTO: http
+    DRONE_SERVER_PROTO: https
 
     ## If you'd like to use a DB other than SQLite (the default), set a driver + DSN here.
     ## Ref: https://docs.drone.io/server/storage/database/
