@@ -5,4 +5,5 @@ namespace: dns
 
 resources:
   - namespace.yaml
+  - ./secret
   - external-dns.yaml

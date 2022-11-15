@@ -61,7 +61,8 @@ server:
     # -- Default drone server Service port
     port: 80
     # -- Additional drone server service annotations
-    annotations: {}
+    annotations:
+      { external-dns.alpha.kubernetes.io/hostname=droneci.vandersleyen.dev }
 
   ingress:
     # -- Specifies if you want to create an ingress access to drone server
