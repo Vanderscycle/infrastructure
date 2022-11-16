@@ -5,3 +5,5 @@ Infrastructure-kubeconfig.yaml
 charts/**/charts/
 **/tls/*.pem
 **/tls/*.csr
+
+**/roles/geerlingguy.*

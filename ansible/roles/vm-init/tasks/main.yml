@@ -1,0 +1,22 @@
+# tasks file for vm-init
+- name: Example from an Ansible Playbook
+  ansible.builtin.ping:
+
+- name: Ensure group "docker" exists with correct gid
+  ansible.builtin.group:
+    name: docker
+    state: present
+    gid: 1750
+
+- name: Create a login user
+  ansible.builtin.user:
+    name: fideloper
+    password: $6$WNeLua3zrlB3ulud$6IufFyc2jwLjeO/rwDyEcuYsT5/JR8MC4Im9ESE88OC0PJChCGeYeBYGJaWd3SOVy2R8WWpbrb7p9YIFIEddK/
+    groups:
+      - docker
+      # - sudo
+    state: present
+    shell: /bin/bash
+    system: false
+    createhome: true
+    home: /home/fideloper
