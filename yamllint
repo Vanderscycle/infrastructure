@@ -5,8 +5,6 @@ rules:
   line-length : disable 
   comments:
     min-spaces-from-content: 1
+    require-starting-space: false
   document-start:
     present: false
-ignore: |
-  /node_modules/
-  /openApi/
