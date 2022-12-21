@@ -4,6 +4,7 @@ kind: Kustomization
 namespace: argocd
 
 resources:
+  - ./namespace.yaml
   - ../../base
 
 # kustomize.buildOptions is not present but this way we can add
