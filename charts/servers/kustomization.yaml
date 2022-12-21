@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: serveres
+
+# make sure namespace exists
+resources:
+- namespace.yaml
+
+helmChartInflationGenerator:
+- chartName: factorio-server-charts
+  chartRepoUrl: https://sqljames.github.io/factorio-server-charts/
+  # chartVersion: 9.5.4
+  releaseName: factorio
+  releaseNamespace: server
+  values: values.yaml

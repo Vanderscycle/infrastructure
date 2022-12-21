@@ -1,17 +1,16 @@
 # only for localhost testing
-install-kind:
-	kind create cluster --config ./localhost/kind.yaml
-	kubectl cluster-info -- context kind-infrastructure-localhost
+kind-create:
+	(cd ./infrastructure/localhost && bash run.sh)
 
 install-argo:
 	helm repo add argo https://argoproj.github.io/argo-helm
 	# helm install argocd argo/argo-cd --version 5.13.8 --namespace argocd --create-namespace --values ./charts/argocd/values.yaml
-	helm template argocd argo/argo-cd --version 5.13.8 --namespace argocd --create-namespace --values ./charts/argocd/base/values.yaml > ./charts/argocd/base/argocd.yaml
+	helm template argocd argo/argo-cd --version 5.16.9 --namespace argocd --create-namespace --values ./charts/argocd/base/values.yaml > ./charts/argocd/base/argocd.yaml
 	kubectl apply -k ./charts/argocd/overlays/prod/
 	# kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 	sleep 20
 	kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
-	bash ./localhost/argocd-login.sh
+	# bash ./localhost/argocd-login.sh
 
 purge: 
 	kind delete clusters infrastructure-localhost

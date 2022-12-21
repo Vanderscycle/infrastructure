@@ -4,7 +4,7 @@
 # kubectl port-forward svc/argocd-server -n argocd 8080:443  & disown
 
 # login
-NODE_BALANCE_IP="104.200.26.4"
+NODE_BALANCE_IP="localhost:8080"
 KEY_PATH="$HOME/.ssh/endeavourGit"
 TEMP_PASS=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo)
 echo -e "$TEMP_PASS"
