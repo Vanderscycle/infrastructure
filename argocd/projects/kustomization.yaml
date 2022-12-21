@@ -7,4 +7,4 @@ resources:
   - project-applications.yaml
   # - project-dns.yaml
   - project-servers.yaml
-  - project-argocd.yaml
+  # - project-argocd.yaml
