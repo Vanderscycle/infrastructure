@@ -6,11 +6,12 @@ namespace: servers
 # make sure namespace exists
 resources:
 - namespace.yaml
+- factorio-helm.yaml
 
-helmChartInflationGenerator:
-- chartName: factorio-server-charts
-  chartRepoUrl: https://sqljames.github.io/factorio-server-charts/
-  # chartVersion: 9.5.4
-  releaseName: factorio
-  releaseNamespace: servers
-  values: values.yaml
+# helmChartInflationGenerator:
+# - chartName: factorio-server-charts
+#   chartRepoUrl: https://sqljames.github.io/factorio-server-charts/
+#   # chartVersion: 9.5.4
+#   releaseName: factorio
+#   releaseNamespace: servers
+#   values: values.yaml

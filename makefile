@@ -11,6 +11,8 @@ install-argo:
 helm-update:
 	helm repo add argo https://argoproj.github.io/argo-helm
 	helm template argocd argo/argo-cd --version 5.16.9 --namespace argocd --create-namespace --values ./charts/argocd/base/values.yaml > ./charts/argocd/base/argocd.yaml
+	helm repo add factorio-server-charts https://sqljames.github.io/factorio-server-charts/
+	helm template factorio-server-charts  factorio-server-charts/factorio-server-charts --version 1.2.0 --namespace servers --create-namespace --values ./charts/servers/values.yaml > ./charts/servers/factorio-helm.yaml
 
 purge: 
 	kind delete clusters infrastructure-localhost
