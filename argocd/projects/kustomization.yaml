@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   # - project-cicd.yaml
   - project-secrets.yaml
+  - project-servers.yaml
   - project-applications.yaml
   # - project-dns.yaml
   - project-servers.yaml
