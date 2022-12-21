@@ -4,7 +4,6 @@ kind: Kustomization
 namespace: argocd
 
 resources:
-  - ./namespace.yaml
   - ../../base
 
 # kustomize.buildOptions is not present but this way we can add
@@ -18,7 +17,7 @@ patches:
         value: "--load-restrictor LoadRestrictionsNone --enable-helm"
   - target:
       kind: Service
-      name: argo-argocd-server
+      name: argocd-server
     patch: |-
       - op: replace
         path: /spec/type

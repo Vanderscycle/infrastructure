@@ -1,16 +1,16 @@
 # only for localhost testing
 kind-create:
-	(cd ./infrastructure/localhost && bash run.sh)
+	# docker-crmAll
+	(cd ./localhost && bash run.sh)
 
 install-argo:
-	helm repo add argo https://argoproj.github.io/argo-helm
-	# helm install argocd argo/argo-cd --version 5.13.8 --namespace argocd --create-namespace --values ./charts/argocd/values.yaml
-	helm template argocd argo/argo-cd --version 5.16.9 --namespace argocd --create-namespace --values ./charts/argocd/base/values.yaml > ./charts/argocd/base/argocd.yaml
 	kubectl apply -k ./charts/argocd/overlays/prod/
-	# kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-	sleep 20
-	kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
+	# kubectl port-forward svc/argocd-server -n argocd 8080:443 & disown
 	# bash ./localhost/argocd-login.sh
+
+helm-update:
+	helm repo add argo https://argoproj.github.io/argo-helm
+	helm template argocd argo/argo-cd --version 5.16.9 --namespace argocd --create-namespace --values ./charts/argocd/base/values.yaml > ./charts/argocd/base/argocd.yaml
 
 purge: 
 	kind delete clusters infrastructure-localhost
@@ -25,7 +25,7 @@ secret:
 
 localhost:
 	kubectl port-forward svc/argocd-server -n argocd 8080:443 & disown
-	kubectl port-forward svc/consul-consul-server -n vault 8500:8500 & disown
+	# kubectl port-forward svc/consul-consul-server -n vault 8500:8500 & disown
 	# kubectl port-forward svc/gitea-http -n git 3000:3000 & disown
 
 connect: # Not working

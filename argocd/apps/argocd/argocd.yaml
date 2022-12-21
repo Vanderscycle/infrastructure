@@ -11,7 +11,7 @@ spec:
     server: https://kubernetes.default.svc
   project: argocd
   source:
-    path: charts/argocd/overlays/prod
+    path: charts/argocd/base
     repoURL: git@github.com:Vanderscycle/infrastructure.git
     targetRevision: main
   syncPolicy:
