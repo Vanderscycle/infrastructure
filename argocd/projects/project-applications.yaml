@@ -13,6 +13,8 @@ spec:
   clusterResourceWhitelist:
     - group: "*"
       kind: "*"
+    - group: ''
+      kind: 'Namespace'
   namespaceResourceWhitelist:
     - group: "argoproj.io"
       kind: Application
