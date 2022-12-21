@@ -6,11 +6,11 @@ namespace: argocd
 resources:
   - ../../base
 
-# patches:
-#   - target:
-#       kind: Application
-#       name: .*
-#     patch: |-
-#       - op: replace
-#         path: /spec/source/targetRevision
-#         value: dev
+patches:
+  - target:
+      kind: Application
+      name: .*
+    patch: |-
+      - op: replace
+        path: /spec/source/targetRevision
+        value: dev-kind
