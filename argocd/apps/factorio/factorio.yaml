@@ -17,7 +17,7 @@ spec:
     helm:
       releaseName: factorio
       valueFiles:
-        - charts/factorio/custom-values.yaml
+        - custom-values.yaml
   syncPolicy:
     automated:
       prune: true
