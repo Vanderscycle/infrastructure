@@ -15,10 +15,16 @@ spec:
   clusterResourceWhitelist:
     - group: "*"
       kind: "*"
-    - group: ''
-      kind: 'Namespace'
   namespaceResourceWhitelist:
     - group: "argoproj.io"
       kind: Application
+  # sourceRepos:
+  #   - git@github.com:Vanderscycle/infrastructure.git
   sourceRepos:
-    - git@github.com:Vanderscycle/infrastructure.git
+    - '*'
+  # destinations:
+  #   - namespace: '*'
+  #     server: '*'
+  # clusterResourceWhitelist:
+  #   - group: '*'
+  #     kind: '*'
