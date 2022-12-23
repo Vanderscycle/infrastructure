@@ -13,7 +13,7 @@ spec:
   source:
     path: argocd/apps/factorio
     repoURL: git@github.com:Vanderscycle/infrastructure.git
-    targetRevision: helming
+    targetRevision: main
   syncPolicy:
     automated:
       prune: true
