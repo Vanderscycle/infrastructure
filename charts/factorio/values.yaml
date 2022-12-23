@@ -26,7 +26,7 @@ white_list: [ ] # put the people you want to play with you based on factorio nam
 # - "jane_doe"
 #
 service:
-  type: ClusteIp
+  type: ClusterIP
   port: 31497
 
   # externalIPs:
