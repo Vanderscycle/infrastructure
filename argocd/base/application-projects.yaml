@@ -11,7 +11,7 @@ spec:
   source:
     path: argocd/projects
     repoURL: git@github.com:Vanderscycle/infrastructure.git
-    targetRevision: main
+    targetRevision: helming
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
