@@ -26,14 +26,14 @@ white_list: [ ] # put the people you want to play with you based on factorio nam
 # - "jane_doe"
 #
 service:
-  type: ClusterIP
+  type: NodePort
   port: 31497
 
-  # externalIPs:
-  #  - "172.105.1.131"
+  externalIPs:
+   # - "172.105.1.131"
 
 server_settings:
-  name: Factorio-2022-on-kubernetes
+  name: Factorio-2022-01-kubernetes
   tags:
     - modded
   visibility:
