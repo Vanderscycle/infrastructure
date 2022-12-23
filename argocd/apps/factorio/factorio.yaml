@@ -11,13 +11,16 @@ spec:
     server: https://kubernetes.default.svc
   project: factorio
   source:
-    chart: factorio-server-charts
-    repoURL: https://sqljames.github.io/factorio-server-charts/
-    targetRevision: 1.2.0
-    helm:
-      releaseName: factorio
-      valueFiles:
-        - custom-values.yaml
+    path: charts/factorio
+    repoURL: git@github.com:Vanderscycle/infrastructure.git
+    targetRevision: main
+  #   chart: factorio-server-charts
+  #   repoURL: https://sqljames.github.io/factorio-server-charts/
+  #   targetRevision: 1.2.0
+  #   helm:
+  #     releaseName: factorio
+  #     valueFiles:
+  #       - custom-values.yaml
   syncPolicy:
     automated:
       prune: true
