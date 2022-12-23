@@ -3,8 +3,9 @@ kind: Kustomization
 
 namespace: factorio
 # make sure namespace exists
-# resources:
-# -  ./overlays/prod
+resources:
+-  fafactorio-ingress.yaml
+
 helmCharts:
 - name: factorio-server-charts
   version: 1.2.0
