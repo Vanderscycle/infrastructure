@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: factorio
 # make sure namespace exists
 resources:
--  fafactorio-ingress.yaml
+-  factorio-ingress.yaml
 
 helmCharts:
 - name: factorio-server-charts
