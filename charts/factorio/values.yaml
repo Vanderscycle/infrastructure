@@ -72,7 +72,7 @@ mods:
   # name is determined by the url, it will be the last part of the url, not the title of the mod.
   portal:
     - space-exploration
-    - space-exploration-postprocess
+    # - space-exploration-postprocess
     - space-exploration-graphics
     - Squeak Through
     - LogisticTrainNetwork
