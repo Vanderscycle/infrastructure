@@ -9,10 +9,10 @@ metadata:
     # nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-  - host: 172-105-2-243.ip.linodeusercontent.com
+  - host: factorio.172-105-2-243.ip.linodeusercontent.com
     http:
       paths:
-      - path: /factorio
+      - path: /
         pathType: Prefix
         backend:
           service:
