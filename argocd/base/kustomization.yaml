@@ -8,7 +8,7 @@ resources:
   - application-factorio.yaml
   # - application-dns.yaml
   # - application-cicd.yaml
-  # - application-secrets.yaml
+  - application-secrets.yaml
   - application-projects.yaml
   # - application-servers.yaml
   # - application-argocd.yaml

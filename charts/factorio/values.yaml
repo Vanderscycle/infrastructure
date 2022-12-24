@@ -58,7 +58,7 @@ account:
   username: 'VanofHoogen'
   password: ''
   # Authentication token. May be used instead of password above.
-  token: '1e5d6c869ef31c0849e7424f84e32f'
+  token: ''
 
 serverPassword:
   # password required to log into the factorio server
@@ -72,6 +72,8 @@ mods:
   # name is determined by the url, it will be the last part of the url, not the title of the mod.
   portal:
     - space-exploration
+    - Squeak Through
+    - LogisticTrainNetwork
   # unofficial section is meant to just allow you to download and place folders into the mods folder.
   # we will not check version compatibility automatically with these downloads.
   # you can encounter an error if the file names dont match what the mod is expecting for example
