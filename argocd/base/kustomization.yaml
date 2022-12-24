@@ -10,5 +10,4 @@ resources:
   # - application-cicd.yaml
   - application-secrets.yaml
   - application-projects.yaml
-  # - application-servers.yaml
   # - application-argocd.yaml
