@@ -58,7 +58,7 @@ account:
   username: 'VanofHoogen'
   password: ''
   # Authentication token. May be used instead of password above.
-  token: ''
+  token: 'fa86b79fc13d4ce6a0cb613163a80d'
 
 serverPassword:
   # password required to log into the factorio server
