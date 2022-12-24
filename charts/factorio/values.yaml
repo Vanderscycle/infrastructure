@@ -33,7 +33,7 @@ service:
    # - "172.105.1.131"
 
 server_settings:
-  name: Factorio-2022-01-kubernetes
+  name: helm-kubernetes-argocd-spaceX
   tags:
     - modded
   visibility:
