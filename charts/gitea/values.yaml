@@ -131,7 +131,7 @@ service:
 ## @param ingress.tls Ingress tls settings
 ## @extra ingress.apiVersion Specify APIVersion of ingress object. Mostly would only be used for argocd.
 ingress:
-  enabled: true
+  enabled: false
   # className: nginx
   className:
   annotations: {
@@ -266,7 +266,7 @@ gitea:
   ## @param gitea.admin.password Password for the Gitea admin user
   ## @param gitea.admin.email Email for the Gitea admin user
   admin:
-    #existingSecret: gitea-admin-secret
+    # existingSecret: gitea-admin-secret
     existingSecret:
     username: gitea_admin
     password: r8sA8CPHD9!bt6d
