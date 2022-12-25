@@ -22,7 +22,7 @@ activate:
 
 secret:
 	kubeseal --fetch-cert > kubeseal-public.pem
-	kubeseal --cert kubeseal-public.pem -f ./charts/cicd/secrets/secret.yaml -o yaml > ./charts/cicd/secrets/sealed-secret.yaml
+	kubeseal --cert kubeseal-public.pem -f ./charts/gitea/secrets/secret.yaml -o yaml > ./charts/gitea/secrets/sealed-secret.yaml
 	kubectl apply -k ./charts/cicd/secrets/
 
 localhost:

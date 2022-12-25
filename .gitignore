@@ -1,6 +1,6 @@
 .env
 secret.yaml
-Infrastructure-kubeconfig.yaml
+*-kubeconfig.yaml
 
 charts/**/charts/
 **/tls/*.pem

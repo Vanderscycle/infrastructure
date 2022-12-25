@@ -1,14 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: dns
-  namespace: argocd
+  name: gitea
+  namespace: gitea
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  description: Infrastructure declarative config for drone ci
+  description: A self-hosted gitea server
   destinations:
-    - namespace: dns
+    - namespace: gitea
       server: https://kubernetes.default.svc
     - namespace: kube-system
       server: https://kubernetes.default.svc
@@ -16,4 +16,6 @@ spec:
     - group: "*"
       kind: "*"
   sourceRepos:
-    - git@github.com:Vanderscycle/infrastructure.git
+    - '*'
+    # - git@github.com:Vanderscycle/infrastructure.git
+

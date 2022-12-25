@@ -1,18 +1,24 @@
-apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: dns
+  name: gitea
   annotations:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
   destination:
-    namespace: dns
+    namespace: gitea
     server: https://kubernetes.default.svc
-  project: dns
+  project: gitea
   source:
-    path: charts/external-dns
+    path: charts/gitea
     repoURL: git@github.com:Vanderscycle/infrastructure.git
     targetRevision: main
+  #   chart: factorio-server-charts
+  #   repoURL: https://sqljames.github.io/factorio-server-charts/
+  #   targetRevision: 1.2.0
+  #   helm:
+  #     releaseName: factorio
+  #     valueFiles:
+  #       - custom-values.yaml
   syncPolicy:
     automated:
       prune: true

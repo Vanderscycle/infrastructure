@@ -3,6 +3,7 @@ kind: Kustomization
 
 resources:
   # - project-cicd.yaml
+  - project-gitea.yaml
   - project-secrets.yaml
   - project-applications.yaml
   - project-factorio.yaml
