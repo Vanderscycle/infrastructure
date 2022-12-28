@@ -41,7 +41,7 @@ server_settings:
     - helm
     - experimental
   visibility:
-    # public: true
+    public: true
   require_user_verification: true
 
 account:
