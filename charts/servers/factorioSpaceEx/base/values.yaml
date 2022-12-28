@@ -65,7 +65,7 @@ serverPassword:
   # password required to log into the factorio server
   game_password: 'kubernetes'
   # Existing Secret containing a `game_password` data entry
-  passwordSecret: ''
+  passwordSecret: 'kubernetes'
 
 mods:
   enabled: false
