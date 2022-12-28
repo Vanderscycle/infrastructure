@@ -65,7 +65,7 @@ serverPassword:
   # password required to log into the factorio server
   game_password: 'broski'
   # Existing Secret containing a `game_password` data entry
-  passwordSecret: ''
+  passwordSecret: 'broski'
 
 mods:
   enabled: false
