@@ -9,7 +9,7 @@ spec:
     server: https://kubernetes.default.svc
   project: factorio
   source:
-    path: charts/factorio
+    path: charts/servers
     repoURL: git@github.com:Vanderscycle/infrastructure.git
     targetRevision: main
   #   chart: factorio-server-charts
