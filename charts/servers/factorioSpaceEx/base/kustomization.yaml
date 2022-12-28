@@ -5,7 +5,8 @@ namespace: factorio
 # make sure namespace exists
 
 resources:
--  factorio-ingress.yaml
+- factorio-ingress.yaml
+- namespace.yaml
 
 helmCharts:
 - name: factorio-server-charts
