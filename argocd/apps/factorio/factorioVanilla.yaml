@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: factorio
+  name: factorioVanilla
   annotations:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
@@ -10,7 +10,7 @@ spec:
     server: https://kubernetes.default.svc
   project: factorio
   source:
-    path: charts/servers
+    path: charts/servers/factorioVanilla
     repoURL: git@github.com:Vanderscycle/infrastructure.git
     targetRevision: main
   #   chart: factorio-server-charts
