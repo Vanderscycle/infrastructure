@@ -1,5 +1,6 @@
 rcon:
   external: true
+  passwordSecret: 'factorio-admin-secret'
 
 nodeSelector:
   # kubernetes.io/hostname: space-exploration # this makes it easier for firewall rules and makes sure things dont change
