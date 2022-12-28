@@ -33,7 +33,7 @@ service:
    # - "172.105.1.131"
 
 server_settings:
-  name: helm-kubernetes-argocd-vanilla
+  name: '[BETA] helm-kubernetes-argocd-SpaceEx'
   tags:
     # - modded
     - vanilla
@@ -65,10 +65,10 @@ serverPassword:
   # password required to log into the factorio server
   game_password: 'kubernetes'
   # Existing Secret containing a `game_password` data entry
-  passwordSecret: 'kubernetes'
+  passwordSecret: ''
 
 mods:
-  enabled: false
+  enabled: true
   # in order to use the mods portal you will need to specify the username and token in the server_settings.
   # name is determined by the url, it will be the last part of the url, not the title of the mod.
   portal:

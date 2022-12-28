@@ -33,7 +33,8 @@ service:
    # - "172.105.1.131"
 
 server_settings:
-  name: helm-kubernetes-argocd-AbsoluteBeginnerVanilla
+
+  name: '[BETA] helm-kubernetes-argocd-vanilla'
   tags:
     # - modded
     - vanilla
