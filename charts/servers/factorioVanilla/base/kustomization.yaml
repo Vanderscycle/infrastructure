@@ -6,7 +6,7 @@ namespace: factorio-vanilla
 
 resources:
 - namespace.yaml
-# -  factorio-ingress.yaml
+- secrets
 
 helmCharts:
 - name: factorio-server-charts

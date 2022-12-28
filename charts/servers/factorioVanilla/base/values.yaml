@@ -1,5 +1,5 @@
 rcon:
-  external: false
+  external: true
 
 nodeSelector:
   # kubernetes.io/hostname: space-exploration # this makes it easier for firewall rules and makes sure things dont change
@@ -66,9 +66,9 @@ account:
 
 serverPassword:
   # password required to log into the factorio server
-  game_password: 'broski'
+  game_password: ''
   # Existing Secret containing a `game_password` data entry
-  passwordSecret: ''
+  passwordSecret: 'factorio-admin-secret'
 
 mods:
   enabled: false

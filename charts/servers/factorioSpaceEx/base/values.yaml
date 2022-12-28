@@ -1,6 +1,6 @@
 rcon:
   external: true
-  passwordSecret: 'test'
+  # passwordSecret: 'test'
 
 nodeSelector:
   # kubernetes.io/hostname: space-exploration # this makes it easier for firewall rules and makes sure things dont change
