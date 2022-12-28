@@ -14,7 +14,7 @@ helmCharts:
   repo: https://sqljames.github.io/factorio-server-charts/
   valuesFile: values.yaml
   namespace: factorio
-  releaseName: server
+  releaseName: vanilla
 
 patchesStrategicMerge:
   - patches/svc.yaml
