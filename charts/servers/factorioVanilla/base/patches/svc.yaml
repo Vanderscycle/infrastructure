@@ -5,6 +5,6 @@ metadata:
 spec:
   ports:
     - name: http
-      port: 27015
+      port: 27016
       protocol: TCP
       targetPort: 27015
