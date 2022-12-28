@@ -15,6 +15,7 @@ persistence:
 
 factorioServer:
   save_name: "space-exploration"
+  update_mods_on_start: true
 
 #needed if playing online
 admin_list: [ 'VanofHoogen' ] # put your admins based on factorio names
@@ -29,17 +30,21 @@ service:
   type: NodePort
   port: 31497
 
-  externalIPs:
-   # - "172.105.1.131"
+  # externalIPs:
+  #  - "172.105.1.131"
 
 server_settings:
   name: '[BETA] helm-kubernetes-argocd-SpaceEx'
+  description: 'unstable and experimental deployment method by me. Use at own risk and expect loss of data'
   tags:
-    # - modded
-    - vanilla
+    - modded
+    - helm
+    - experimental
+
   visibility:
     public: true
   require_user_verification: true
+  autosave_only_on_server: false
 
 account:
   # Existing secret containing a valid factorio.com username and either a password or a token

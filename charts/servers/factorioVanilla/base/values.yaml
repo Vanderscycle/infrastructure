@@ -29,17 +29,19 @@ service:
   type: NodePort
   port: 31498
 
-  externalIPs:
-   # - "172.105.1.131"
+  # externalIPs:
+  #  - "172.105.1.131"
 
 server_settings:
-
+  autosave_only_on_server: false
   name: '[BETA] helm-kubernetes-argocd-vanilla'
+  description: 'unstable and experimental deployment method by me. Use at own risk and expect loss of data'
   tags:
-    # - modded
     - vanilla
+    - helm
+    - experimental
   visibility:
-    public: true
+    # public: true
   require_user_verification: true
 
 account:

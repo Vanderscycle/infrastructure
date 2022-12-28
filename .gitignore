@@ -7,3 +7,5 @@ charts/**/charts/
 **/tls/*.csr
 
 **/roles/geerlingguy.*
+
+*.log
