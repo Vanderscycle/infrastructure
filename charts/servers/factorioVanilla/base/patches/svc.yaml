@@ -4,7 +4,7 @@ metadata:
   name: vanilla-factorio-server-charts
 spec:
   ports:
-    - name: http
+    - name: http-vanilla
       port: 27016
       protocol: TCP
       targetPort: 27015

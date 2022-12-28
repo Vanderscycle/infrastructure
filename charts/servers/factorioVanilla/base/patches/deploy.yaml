@@ -6,8 +6,8 @@ spec:
   template:
     spec:
       containers:
-        - name: server-factorio-server-charts
+        - name: vanilla-factorio-server-charts
           ports:
             - containerPort: 27015
-              name: http
+              name: http-vanilla
               protocol: TCP

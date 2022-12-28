@@ -6,7 +6,7 @@ spec:
   template:
     spec:
       containers:
-        - name: server-factorio-server-charts
+        - name: space-factorio-server-charts
           ports:
             - containerPort: 27015
               name: http
