@@ -118,7 +118,7 @@ mods:
     - informatron
     - jetpack
     - space-exploration-postprocess # causes crashes
-    - space-exploration
+    # - space-exploration
   # unofficial section is meant to just allow you to download and place folders into the mods folder.
   # we will not check version compatibility automatically with these downloads.
   # you can encounter an error if the file names dont match what the mod is expecting for example
