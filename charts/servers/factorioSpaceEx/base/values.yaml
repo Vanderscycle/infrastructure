@@ -1,9 +1,13 @@
 rcon:
-  external: true
+  external: false
   # passwordSecret: 'test'
 
-nodeSelector:
+# nodeSelector:
   # kubernetes.io/hostname: space-exploration # this makes it easier for firewall rules and makes sure things dont change
+  #
+resources:
+  requests:
+    cpu: 250m
 
 # making sure the game doesnt auto update on redeploy
 # https://hub.docker.com/r/factoriotools/factorio/
@@ -60,10 +64,10 @@ account:
   #   password: <password in base64>
   #
   # accountSecret: account-secret
-  accountSecret: ''
+  # accountSecret: ''
   # Your factorio.com login credentials. Required for games with visibility public
   username: 'VanofHoogen'
-  password: ''
+  # password: ''
   # Authentication token. May be used instead of password above.
   token: '97154b15a07fab9394cf9e0a064a1f'
 
