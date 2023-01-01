@@ -9,3 +9,4 @@ charts/**/charts/
 **/roles/geerlingguy.*
 
 *.log
+node_modules
