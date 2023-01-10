@@ -42,6 +42,7 @@ service:
 server_settings:
   autosave_only_on_server: false
   name: '[BETA] helm-kubernetes-argocd-vanilla'
+  name: '[BETA] helm-kubernetes-argocd-vanilla-test'
   description: 'unstable and experimental deployment method by me. Use at own risk and expect loss of data'
   tags:
     - vanilla
@@ -73,7 +74,7 @@ account:
 
 serverPassword:
   # password required to log into the factorio server
-  # game_password: ''
+  game_password: 'test'
   # Existing Secret containing a `game_password` data entry
   passwordSecret: 'factorio-admin-secret'
 
