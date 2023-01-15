@@ -1,10 +1,10 @@
 rcon:
   external: false
-  # passwordSecret: 'test'
+  passwordSecret: "factorio-admin-secret"
 
 # nodeSelector:
-  # kubernetes.io/hostname: space-exploration # this makes it easier for firewall rules and makes sure things dont change
-  #
+# kubernetes.io/hostname: space-exploration # this makes it easier for firewall rules and makes sure things dont change
+#
 resources:
   requests:
     cpu: 250m
@@ -14,7 +14,6 @@ resources:
 image:
   tag: stable
 
-
 persistence:
   enabled: true
 
@@ -23,11 +22,11 @@ factorioServer:
   update_mods_on_start: true
 
 #needed if playing online
-admin_list: [ 'VanofHoogen' ] # put your admins based on factorio names
+admin_list: ["VanofHoogen"] # put your admins based on factorio names
 # - "john_doe"
 # - "jane_doe"
 
-white_list: [ ] # put the people you want to play with you based on factorio names
+white_list: [] # put the people you want to play with you based on factorio names
 # - "john_doe"
 # - "jane_doe"
 #
@@ -39,8 +38,8 @@ service:
   #  - "172.105.1.131"
 
 server_settings:
-  name: '[BETA] helm-kubernetes-argocd-SpaceEx'
-  description: 'unstable and experimental deployment method by me. Use at own risk and expect loss of data'
+  name: "[BETA] helm-kubernetes-argocd-SpaceEx"
+  description: "unstable and experimental deployment method by me. Use at own risk and expect loss of data"
   tags:
     - modded
     - helm
@@ -63,19 +62,18 @@ account:
   #   username: <username in base64>
   #   password: <password in base64>
   #
-  # accountSecret: account-secret
-  # accountSecret: ''
+  accountSecret: "factorio-admin-secret"
   # Your factorio.com login credentials. Required for games with visibility public
-  username: 'VanofHoogen'
+  # username: ""
   # password: ''
   # Authentication token. May be used instead of password above.
-  token: '97154b15a07fab9394cf9e0a064a1f'
+  # token: ""
 
 serverPassword:
   # password required to log into the factorio server
-  game_password: 'kubernetes'
+  game_password: ""
   # Existing Secret containing a `game_password` data entry
-  passwordSecret: ''
+  passwordSecret: "factorio-admin-secret"
 
 mods:
   enabled: true
@@ -117,7 +115,7 @@ mods:
     - robot_attrition
     - informatron
     - jetpack
-    - space-exploration-postprocess 
+    - space-exploration-postprocess
     - space-exploration # causes crashes
   # unofficial section is meant to just allow you to download and place folders into the mods folder.
   # we will not check version compatibility automatically with these downloads.
@@ -140,11 +138,11 @@ map_settings:
 map_gen_settings:
   water: 1.5
   starting_area: 2
-  autoplace_controls: 
+  autoplace_controls:
     hot:
       size: 0.5
     cold:
       size: 0.5
   property_expression_names:
-    control-setting:moisture:bias: '0.05'
-    control-setting:aux:bias: '-0.35'
+    control-setting:moisture:bias: "0.05"
+    control-setting:aux:bias: "-0.35"
