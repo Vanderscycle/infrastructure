@@ -5,7 +5,7 @@ namespace: external-dns
 
 resources:
   - namespace.yaml
-  - secrets.yaml
+  - secrets
 
 helmCharts:
   - name: external-dns
