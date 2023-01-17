@@ -8,7 +8,7 @@ spec:
   destination:
     namespace: external-dns
     server: https://kubernetes.default.svc
-  project: external-dns
+  project: support
   source:
     path: charts/suppport/external-dns
     repoURL: git@github.com:Vanderscycle/infrastructure.git
