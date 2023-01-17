@@ -7,5 +7,6 @@ resources:
   - project-secrets.yaml
   - project-applications.yaml
   - project-factorio.yaml
+  - project-support.yaml
   # - project-dns.yaml
   # - project-argocd.yaml
