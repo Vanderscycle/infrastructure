@@ -3,6 +3,7 @@ kind: Ingress
 metadata:
   labels:
   name: uptime-kuma
+  annotations: externali-dns.alpha.kubernetes.io/hostname=uptime.vandersleyen.dev
 spec:
   defaultBackend:
     service:
@@ -11,10 +12,10 @@ spec:
         name: http
   tls:
     - hosts:
-        - uptime.vandersleyen.io
+        - uptime.vandersleyen.dev
       # secretName: uptime-kuma-tls
   rules:
-    - host: uptime.vandersleyen.io
+    - host: uptime.vandersleyen.dev
       http:
         paths:
           - path: /(.*)
