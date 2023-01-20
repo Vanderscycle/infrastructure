@@ -10,10 +10,10 @@ spec:
       name: uptime-kuma
       port:
         name: http
-  tls:
-    - hosts:
-        - uptime.vandersleyen.dev
-      # secretName: uptime-kuma-tls
+  # tls:
+  #   - hosts:
+  #       - uptime.vandersleyen.dev
+  #     secretName: uptime-kuma-tls
   rules:
     - host: uptime.vandersleyen.dev
       http:
