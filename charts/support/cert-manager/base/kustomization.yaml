@@ -3,6 +3,7 @@ kind: Kustomization
 
 resources:
   - namespace.yaml
+  - acme-issuer-prod.yaml
 
 helmCharts:
   - name: cert-manager

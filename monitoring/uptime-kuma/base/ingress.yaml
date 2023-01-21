@@ -1,19 +1,20 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  labels:
   name: uptime-kuma
-  annotations: externali-dns.alpha.kubernetes.io/hostname=uptime.vandersleyen.dev
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
   defaultBackend:
     service:
       name: uptime-kuma
       port:
         name: http
-  # tls:
-  #   - hosts:
-  #       - uptime.vandersleyen.dev
-  #     secretName: uptime-kuma-tls
+  tls:
+    - hosts:
+        - uptime.vandersleyen.dev
+      secretName: example-tls
   rules:
     - host: uptime.vandersleyen.dev
       http:
