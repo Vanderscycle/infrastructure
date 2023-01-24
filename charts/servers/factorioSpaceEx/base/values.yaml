@@ -97,6 +97,10 @@ mods:
     - BottleneckLite
     # - Squeak Through
     - LogisticTrainNetwork
+    - LtnManager
+    - Bottleneck
+    - AutoDeconstruct
+    - Fill4Me-fixed
     # spaceX
     - alien-biomes
     - alien-biomes-hr-terrain
