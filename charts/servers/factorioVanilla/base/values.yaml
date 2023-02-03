@@ -14,7 +14,6 @@ nodeSelector:
 image:
   tag: stable
 
-
 persistence:
   enabled: true
 
@@ -22,13 +21,13 @@ factorioServer:
   save_name: "vanilla"
 
 #needed if playing online
-admin_list: [ 'VanofHoogen' ] # put your admins based on factorio names
+admin_list: ["VanofHoogen"] # put your admins based on factorio names
 # - "john_doe"
 # - "jane_doe"
 
-ban_list: [ ]
+ban_list: []
 
-white_list: [ ] # put the people you want to play with you based on factorio names
+white_list: [] # put the people you want to play with you based on factorio names
 # - "john_doe"
 # - "jane_doe"
 
@@ -41,9 +40,8 @@ service:
 
 server_settings:
   autosave_only_on_server: false
-  name: '[BETA] helm-kubernetes-argocd-vanilla'
-  name: '[BETA] helm-kubernetes-argocd-vanilla-test'
-  description: 'unstable and experimental deployment method by me. Use at own risk and expect loss of data'
+  name: "[BETA] helm-kubernetes-argocd-vanilla"
+  description: "unstable and experimental deployment method by me. Use at own risk and expect loss of data"
   tags:
     - vanilla
     - helm
@@ -67,16 +65,16 @@ account:
   # accountSecret: account-secret
   # accountSecret: ''
   # Your factorio.com login credentials. Required for games with visibility public
-  username: 'VanofHoogen'
+  username: "VanofHoogen"
   # password: ''
   # Authentication token. May be used instead of password above.
-  token: '97154b15a07fab9394cf9e0a064a1f'
+  token: "97154b15a07fab9394cf9e0a064a1f"
 
 serverPassword:
   # password required to log into the factorio server
-  game_password: 'test'
+  game_password: "test"
   # Existing Secret containing a `game_password` data entry
-  passwordSecret: 'factorio-admin-secret'
+  passwordSecret: "factorio-admin-secret"
 
 mods:
   enabled: false
