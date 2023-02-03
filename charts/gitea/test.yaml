@@ -1,0 +1,781 @@
+apiVersion: v1
+automountServiceAccountToken: true
+kind: ServiceAccount
+metadata:
+  labels:
+    app.kubernetes.io/instance: git
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: memcached
+    helm.sh/chart: memcached-5.9.0
+  name: git-memcached
+  namespace: gitea
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  labels:
+    app: gitea
+    app.kubernetes.io/instance: git
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: gitea
+    app.kubernetes.io/version: 1.17.3
+    helm.sh/chart: gitea-6.0.3
+    version: 1.17.3
+  name: git-gitea
+  namespace: gitea
+stringData:
+  config_environment.sh: "#!/usr/bin/env bash\nset -euo pipefail\n\nfunction env2ini::log()
+    {\n  printf \"${1}\\n\"\n}\n\nfunction env2ini::read_config_to_env() {\n  local
+    section=\"${1}\"\n  local line=\"${2}\"\n\n  if [[ -z \"${line}\" ]]; then\n    #
+    skip empty line\n    return\n  fi\n  \n  # 'xargs echo -n' trims all leading/trailing
+    whitespaces and a trailing new line\n  local setting=\"$(awk -F '=' '{print $1}'
+    <<< \"${line}\" | xargs echo -n)\"\n\n  if [[ -z \"${setting}\" ]]; then\n    env2ini::log
+    '  ! invalid setting'\n    exit 1\n  fi\n\n  local value=''\n  local regex=\"^${setting}(\\s*)=(\\s*)(.*)\"\n
+    \ if [[ $line =~ $regex ]]; then\n    value=\"${BASH_REMATCH[3]}\"\n  else\n    env2ini::log
+    '  ! invalid setting'\n    exit 1\n  fi\n\n  env2ini::log \"    + '${setting}'\"\n\n
+    \ if [[ -z \"${section}\" ]]; then\n    export \"ENV_TO_INI____${setting^^}=${value}\"
+    \                          # '^^' makes the variable content uppercase\n    return\n
+    \ fi\n\n  local masked_section=\"${section//./_0X2E_}\"                            #
+    '//' instructs to replace all matches\n  masked_section=\"${masked_section//-/_0X2D_}\"\n\n
+    \ export \"ENV_TO_INI__${masked_section^^}__${setting^^}=${value}\"        # '^^'
+    makes the variable content uppercase\n}\n\nfunction env2ini::reload_preset_envs()
+    {\n  env2ini::log \"Reloading preset envs...\"\n\n  while read -r line; do\n    if
+    [[ -z \"${line}\" ]]; then\n      # skip empty line\n      return\n    fi\n\n
+    \   # 'xargs echo -n' trims all leading/trailing whitespaces and a trailing new
+    line\n    local setting=\"$(awk -F '=' '{print $1}' <<< \"${line}\" | xargs echo
+    -n)\"\n\n    if [[ -z \"${setting}\" ]]; then\n      env2ini::log '  ! invalid
+    setting'\n      exit 1\n    fi\n\n    local value=''\n    local regex=\"^${setting}(\\s*)=(\\s*)(.*)\"\n
+    \   if [[ $line =~ $regex ]]; then\n      value=\"${BASH_REMATCH[3]}\"\n    else\n
+    \     env2ini::log '  ! invalid setting'\n      exit 1\n    fi\n\n    env2ini::log
+    \"  + '${setting}'\"\n\n    export \"${setting^^}=${value}\"                           #
+    '^^' makes the variable content uppercase\n  done < \"/tmp/existing-envs\"\n\n
+    \ rm /tmp/existing-envs\n}\n\n\nfunction env2ini::process_config_file() {\n  local
+    config_file=\"${1}\"\n  local section=\"$(basename \"${config_file}\")\"\n\n  if
+    [[ $section == '_generals_' ]]; then\n    env2ini::log \"  [ini root]\"\n    section=''\n
+    \ else\n    env2ini::log \"  ${section}\"\n  fi\n\n  while read -r line; do\n
+    \   env2ini::read_config_to_env \"${section}\" \"${line}\"\n  done < <(awk 1 \"${config_file}\")
+    \                            # Helm .toYaml trims the trailing new line which
+    breaks line processing; awk 1 ... adds it back while reading\n}\n\nfunction env2ini::load_config_sources()
+    {\n  local path=\"${1}\"\n\n  if [[ -d \"${path}\" ]]; then\n    env2ini::log
+    \"Processing $(basename \"${path}\")...\"\n\n    while read -d '' configFile;
+    do\n      env2ini::process_config_file \"${configFile}\"\n    done < <(find \"${path}\"
+    -type l -not -name '..data' -print0)\n\n    env2ini::log \"\\n\"\n  fi\n}\n\nfunction
+    env2ini::generate_initial_secrets() {\n  # These environment variables will either
+    be\n  #   - overwritten with user defined values,\n  #   - initially used to set
+    up Gitea\n  # Anyway, they won't harm existing app.ini files\n\n  export ENV_TO_INI__SECURITY__INTERNAL_TOKEN=$(gitea
+    generate secret INTERNAL_TOKEN)\n  export ENV_TO_INI__SECURITY__SECRET_KEY=$(gitea
+    generate secret SECRET_KEY)\n  export ENV_TO_INI__OAUTH2__JWT_SECRET=$(gitea generate
+    secret JWT_SECRET)\n  export ENV_TO_INI__SERVER__LFS_JWT_SECRET=$(gitea generate
+    secret LFS_JWT_SECRET)\n\n  env2ini::log \"...Initial secrets generated\\n\"\n}\n\nenv
+    | (grep ENV_TO_INI || [[ $? == 1 ]]) > /tmp/existing-envs\n\n# MUST BE CALLED
+    BEFORE OTHER CONFIGURATION\nenv2ini::generate_initial_secrets\n\nenv2ini::load_config_sources
+    '/env-to-ini-mounts/inlines/'\nenv2ini::load_config_sources '/env-to-ini-mounts/additionals/'\n\n#
+    load existing envs to override auto generated envs\nenv2ini::reload_preset_envs\n\nenv2ini::log
+    \"=== All configuration sources loaded ===\\n\"\n\n# safety to prevent rewrite
+    of secret keys if an app.ini already exists\nif [ -f ${GITEA_APP_INI} ]; then\n
+    \ env2ini::log 'An app.ini file already exists. To prevent overwriting secret
+    keys, these settings are dropped and remain unchanged:'\n  env2ini::log '  - security.INTERNAL_TOKEN'\n
+    \ env2ini::log '  - security.SECRET_KEY'\n  env2ini::log '  - oauth2.JWT_SECRET'\n
+    \ env2ini::log '  - server.LFS_JWT_SECRET'\n\n  unset ENV_TO_INI__SECURITY__INTERNAL_TOKEN\n
+    \ unset ENV_TO_INI__SECURITY__SECRET_KEY\n  unset ENV_TO_INI__OAUTH2__JWT_SECRET\n
+    \ unset ENV_TO_INI__SERVER__LFS_JWT_SECRET\nfi\n\nenvironment-to-ini -o $GITEA_APP_INI
+    -p ENV_TO_INI"
+type: Opaque
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  labels:
+    app: gitea
+    app.kubernetes.io/instance: git
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: gitea
+    app.kubernetes.io/version: 1.17.3
+    helm.sh/chart: gitea-6.0.3
+    version: 1.17.3
+  name: git-gitea-init
+  namespace: gitea
+stringData:
+  configure_gitea.sh: |-
+    #!/usr/bin/env bash
+
+    set -euo pipefail
+
+    echo '==== BEGIN GITEA CONFIGURATION ===='
+
+    { # try
+      gitea migrate
+    } || { # catch
+      echo "Gitea migrate might fail due to database connection...This init-container will try again in a few seconds"
+      exit 1
+    }
+    function configure_admin_user() {
+      local ACCOUNT_ID=$(gitea admin user list --admin | grep -e "\s\+${GITEA_ADMIN_USERNAME}\s\+" | awk -F " " "{printf \$1}")
+      if [[ -z "${ACCOUNT_ID}" ]]; then
+        echo "No admin user '${GITEA_ADMIN_USERNAME}' found. Creating now..."
+        gitea admin user create --admin --username "${GITEA_ADMIN_USERNAME}" --password "${GITEA_ADMIN_PASSWORD}" --email "gitea@local.domain" --must-change-password=false
+        echo '...created.'
+      else
+        echo "Admin account '${GITEA_ADMIN_USERNAME}' already exist. Running update to sync password..."
+        gitea admin user change-password --username "${GITEA_ADMIN_USERNAME}" --password "${GITEA_ADMIN_PASSWORD}"
+        echo '...password sync done.'
+      fi
+    }
+
+    configure_admin_user
+
+    function configure_ldap() {
+        echo 'no ldap configuration... skipping.'
+    }
+
+    configure_ldap
+
+    function configure_oauth() {
+        echo 'no oauth configuration... skipping.'
+    }
+
+    configure_oauth
+
+    echo '==== END GITEA CONFIGURATION ===='
+  init_directory_structure.sh: |-
+    #!/usr/bin/env bash
+
+    set -euo pipefail
+
+    set -x
+    chown 1000:1000 /data
+    mkdir -p /data/git/.ssh
+    chmod -R 700 /data/git/.ssh
+    [ ! -d /data/gitea/conf ] && mkdir -p /data/gitea/conf
+
+    # prepare temp directory structure
+    mkdir -p "${GITEA_TEMP}"
+    chown 1000:1000 "${GITEA_TEMP}"
+    chmod ug+rwx "${GITEA_TEMP}"
+type: Opaque
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  labels:
+    app: gitea
+    app.kubernetes.io/instance: git
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: gitea
+    app.kubernetes.io/version: 1.17.3
+    helm.sh/chart: gitea-6.0.3
+    version: 1.17.3
+  name: git-gitea-inline-config
+  namespace: gitea
+stringData:
+  _generals_: ""
+  cache: |-
+    ADAPTER=memcache
+    ENABLED=true
+    HOST=git-memcached.gitea.svc.cluster.local:11211
+  database: |-
+    DB_TYPE=postgres
+    HOST=git-postgresql.gitea.svc.cluster.local:5432
+    NAME=gitea
+    PASSWD=gitea
+    USER=gitea
+  metrics: ENABLED=false
+  repository: ROOT=/data/git/gitea-repositories
+  security: INSTALL_LOCK=true
+  server: |-
+    APP_DATA_PATH=/data
+    DOMAIN=172-105-2-243.ip.linodeusercontent.com
+    ENABLE_PPROF=false
+    HTTP_PORT=3000
+    PROTOCOL=http
+    ROOT_URL=http://172-105-2-243.ip.linodeusercontent.com
+    SSH_DOMAIN=172-105-2-243.ip.linodeusercontent.com
+    SSH_LISTEN_PORT=22
+    SSH_PORT=22
+type: Opaque
+---
+apiVersion: v1
+data:
+  postgresql-password: Z2l0ZWE=
+  postgresql-postgres-password: anI1S2FLQmRGTA==
+kind: Secret
+metadata:
+  labels:
+    app.kubernetes.io/instance: git
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: postgresql
+    helm.sh/chart: postgresql-10.3.17
+  name: git-postgresql
+  namespace: gitea
+type: Opaque
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: gitea
+    app.kubernetes.io/instance: git
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: gitea
+    app.kubernetes.io/version: 1.17.3
+    helm.sh/chart: gitea-6.0.3
+    version: 1.17.3
+  name: git-gitea-http
+  namespace: gitea
+spec:
+  clusterIP: None
+  ports:
+  - name: http
+    port: 3000
+    targetPort: 3000
+  selector:
+    app.kubernetes.io/instance: git
+    app.kubernetes.io/name: gitea
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: gitea
+    app.kubernetes.io/instance: git
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: gitea
+    app.kubernetes.io/version: 1.17.3
+    helm.sh/chart: gitea-6.0.3
+    version: 1.17.3
+  name: git-gitea-ssh
+  namespace: gitea
+spec:
+  clusterIP: None
+  ports:
+  - name: ssh
+    port: 22
+    protocol: TCP
+    targetPort: 22
+  selector:
+    app.kubernetes.io/instance: git
+    app.kubernetes.io/name: gitea
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/instance: git
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: memcached
+    helm.sh/chart: memcached-5.9.0
+  name: git-memcached
+  namespace: gitea
+spec:
+  ports:
+  - name: memcache
+    nodePort: null
+    port: 11211
+    targetPort: memcache
+  selector:
+    app.kubernetes.io/instance: git
+    app.kubernetes.io/name: memcached
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/instance: git
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: postgresql
+    helm.sh/chart: postgresql-10.3.17
+  name: git-postgresql
+  namespace: gitea
+spec:
+  ports:
+  - name: tcp-postgresql
+    port: 5432
+    targetPort: tcp-postgresql
+  selector:
+    app.kubernetes.io/instance: git
+    app.kubernetes.io/name: postgresql
+    role: primary
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/instance: git
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: postgresql
+    helm.sh/chart: postgresql-10.3.17
+    service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
+  name: git-postgresql-headless
+  namespace: gitea
+spec:
+  clusterIP: None
+  ports:
+  - name: tcp-postgresql
+    port: 5432
+    targetPort: tcp-postgresql
+  publishNotReadyAddresses: true
+  selector:
+    app.kubernetes.io/instance: git
+    app.kubernetes.io/name: postgresql
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/instance: git
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: memcached
+    helm.sh/chart: memcached-5.9.0
+  name: git-memcached
+  namespace: gitea
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: git
+      app.kubernetes.io/name: memcached
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: git
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: memcached
+        helm.sh/chart: memcached-5.9.0
+    spec:
+      affinity:
+        nodeAffinity: null
+        podAffinity: null
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/instance: git
+                  app.kubernetes.io/name: memcached
+              namespaces:
+              - gitea
+              topologyKey: kubernetes.io/hostname
+            weight: 1
+      containers:
+      - args:
+        - /run.sh
+        env:
+        - name: BITNAMI_DEBUG
+          value: "false"
+        image: docker.io/bitnami/memcached:1.6.9-debian-10-r114
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 6
+          initialDelaySeconds: 30
+          tcpSocket:
+            port: memcache
+          timeoutSeconds: 5
+        name: memcached
+        ports:
+        - containerPort: 11211
+          name: memcache
+        readinessProbe:
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          tcpSocket:
+            port: memcache
+          timeoutSeconds: 3
+        resources:
+          limits: {}
+          requests:
+            cpu: 250m
+            memory: 256Mi
+        securityContext:
+          readOnlyRootFilesystem: false
+        volumeMounts:
+        - mountPath: /tmp
+          name: tmp
+      securityContext:
+        fsGroup: 1001
+        runAsUser: 1001
+      serviceAccountName: git-memcached
+      volumes:
+      - emptyDir: {}
+        name: tmp
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app: gitea
+    app.kubernetes.io/instance: git
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: gitea
+    app.kubernetes.io/version: 1.17.3
+    helm.sh/chart: gitea-6.0.3
+    version: 1.17.3
+  name: git-gitea
+  namespace: gitea
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: git
+      app.kubernetes.io/name: gitea
+  serviceName: git-gitea
+  template:
+    metadata:
+      annotations:
+        checksum/config: da82c9ad6a47cea5959b95f2b900e72f79841e40c221b9a456c58d8d84b92e1c
+      labels:
+        app: gitea
+        app.kubernetes.io/instance: git
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: gitea
+        app.kubernetes.io/version: 1.17.3
+        helm.sh/chart: gitea-6.0.3
+        version: 1.17.3
+    spec:
+      containers:
+      - env:
+        - name: SSH_LISTEN_PORT
+          value: "22"
+        - name: SSH_PORT
+          value: "22"
+        - name: GITEA_APP_INI
+          value: /data/gitea/conf/app.ini
+        - name: GITEA_CUSTOM
+          value: /data/gitea
+        - name: GITEA_WORK_DIR
+          value: /data
+        - name: GITEA_TEMP
+          value: /tmp/gitea
+        - name: TMPDIR
+          value: /tmp/gitea
+        image: gitea/gitea:1.17.3
+        imagePullPolicy: Always
+        livenessProbe:
+          failureThreshold: 10
+          initialDelaySeconds: 200
+          periodSeconds: 10
+          successThreshold: 1
+          tcpSocket:
+            port: http
+          timeoutSeconds: 1
+        name: gitea
+        ports:
+        - containerPort: 22
+          name: ssh
+        - containerPort: 3000
+          name: http
+        readinessProbe:
+          failureThreshold: 3
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          successThreshold: 1
+          tcpSocket:
+            port: http
+          timeoutSeconds: 1
+        resources: {}
+        securityContext: {}
+        volumeMounts:
+        - mountPath: /tmp
+          name: temp
+        - mountPath: /data
+          name: data
+      initContainers:
+      - command:
+        - /usr/sbin/init_directory_structure.sh
+        env:
+        - name: GITEA_APP_INI
+          value: /data/gitea/conf/app.ini
+        - name: GITEA_CUSTOM
+          value: /data/gitea
+        - name: GITEA_WORK_DIR
+          value: /data
+        - name: GITEA_TEMP
+          value: /tmp/gitea
+        image: gitea/gitea:1.17.3
+        imagePullPolicy: Always
+        name: init-directories
+        securityContext: {}
+        volumeMounts:
+        - mountPath: /usr/sbin
+          name: init
+        - mountPath: /tmp
+          name: temp
+        - mountPath: /data
+          name: data
+      - command:
+        - /usr/sbin/config_environment.sh
+        env:
+        - name: GITEA_APP_INI
+          value: /data/gitea/conf/app.ini
+        - name: GITEA_CUSTOM
+          value: /data/gitea
+        - name: GITEA_WORK_DIR
+          value: /data
+        - name: GITEA_TEMP
+          value: /tmp/gitea
+        image: gitea/gitea:1.17.3
+        imagePullPolicy: Always
+        name: init-app-ini
+        securityContext: {}
+        volumeMounts:
+        - mountPath: /usr/sbin
+          name: config
+        - mountPath: /tmp
+          name: temp
+        - mountPath: /data
+          name: data
+        - mountPath: /env-to-ini-mounts/inlines/
+          name: inline-config-sources
+      - command:
+        - /usr/sbin/configure_gitea.sh
+        env:
+        - name: GITEA_APP_INI
+          value: /data/gitea/conf/app.ini
+        - name: GITEA_CUSTOM
+          value: /data/gitea
+        - name: GITEA_WORK_DIR
+          value: /data
+        - name: GITEA_TEMP
+          value: /tmp/gitea
+        - name: GITEA_ADMIN_USERNAME
+          valueFrom:
+            secretKeyRef:
+              key: username
+              name: gitea-admin-secret
+        - name: GITEA_ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: password
+              name: gitea-admin-secret
+        image: gitea/gitea:1.17.3
+        imagePullPolicy: Always
+        name: configure-gitea
+        securityContext:
+          runAsUser: 1000
+        volumeMounts:
+        - mountPath: /usr/sbin
+          name: init
+        - mountPath: /tmp
+          name: temp
+        - mountPath: /data
+          name: data
+      securityContext:
+        fsGroup: 1000
+      terminationGracePeriodSeconds: 60
+      volumes:
+      - name: init
+        secret:
+          defaultMode: 110
+          secretName: git-gitea-init
+      - name: config
+        secret:
+          defaultMode: 110
+          secretName: git-gitea
+      - name: inline-config-sources
+        secret:
+          secretName: git-gitea-inline-config
+      - emptyDir: {}
+        name: temp
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 10Gi
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app.kubernetes.io/component: primary
+    app.kubernetes.io/instance: git
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: postgresql
+    helm.sh/chart: postgresql-10.3.17
+  name: git-postgresql
+  namespace: gitea
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: git
+      app.kubernetes.io/name: postgresql
+      role: primary
+  serviceName: git-postgresql-headless
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: primary
+        app.kubernetes.io/instance: git
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: postgresql
+        helm.sh/chart: postgresql-10.3.17
+        role: primary
+      name: git-postgresql
+    spec:
+      affinity:
+        nodeAffinity: null
+        podAffinity: null
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/component: primary
+                  app.kubernetes.io/instance: git
+                  app.kubernetes.io/name: postgresql
+              namespaces:
+              - gitea
+              topologyKey: kubernetes.io/hostname
+            weight: 1
+      containers:
+      - env:
+        - name: BITNAMI_DEBUG
+          value: "false"
+        - name: POSTGRESQL_PORT_NUMBER
+          value: "5432"
+        - name: POSTGRESQL_VOLUME_DIR
+          value: /bitnami/postgresql
+        - name: PGDATA
+          value: /bitnami/postgresql/data
+        - name: POSTGRES_POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: postgresql-postgres-password
+              name: git-postgresql
+        - name: POSTGRES_USER
+          value: gitea
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: postgresql-password
+              name: git-postgresql
+        - name: POSTGRES_DB
+          value: gitea
+        - name: POSTGRESQL_ENABLE_LDAP
+          value: "no"
+        - name: POSTGRESQL_ENABLE_TLS
+          value: "no"
+        - name: POSTGRESQL_LOG_HOSTNAME
+          value: "false"
+        - name: POSTGRESQL_LOG_CONNECTIONS
+          value: "false"
+        - name: POSTGRESQL_LOG_DISCONNECTIONS
+          value: "false"
+        - name: POSTGRESQL_PGAUDIT_LOG_CATALOG
+          value: "off"
+        - name: POSTGRESQL_CLIENT_MIN_MESSAGES
+          value: error
+        - name: POSTGRESQL_SHARED_PRELOAD_LIBRARIES
+          value: pgaudit
+        image: docker.io/bitnami/postgresql:11.11.0-debian-10-r62
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - exec pg_isready -U "gitea" -d "dbname=gitea" -h 127.0.0.1 -p 5432
+          failureThreshold: 6
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 5
+        name: git-postgresql
+        ports:
+        - containerPort: 5432
+          name: tcp-postgresql
+        readinessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - -e
+            - |
+              exec pg_isready -U "gitea" -d "dbname=gitea" -h 127.0.0.1 -p 5432
+              [ -f /opt/bitnami/postgresql/tmp/.initialized ] || [ -f /bitnami/postgresql/.initialized ]
+          failureThreshold: 6
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 5
+        resources:
+          requests:
+            cpu: 250m
+            memory: 256Mi
+        securityContext:
+          runAsUser: 1001
+        volumeMounts:
+        - mountPath: /dev/shm
+          name: dshm
+        - mountPath: /bitnami/postgresql
+          name: data
+          subPath: null
+      securityContext:
+        fsGroup: 1001
+      volumes:
+      - emptyDir:
+          medium: Memory
+          sizeLimit: 1Gi
+        name: dshm
+  updateStrategy:
+    type: RollingUpdate
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 10Gi
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: gitea-admin-secret
+  namespace: gitea
+spec:
+  encryptedData:
+    email: AgCUzLd8LUPbLqph0jKICjO9Eks8LW8rxQXEtI7dPOqNZpkbdZOoZNNg51/mHs8xDc86siKm53BOSYo9S9QCfhU9TZMW8sN2qu3msZzhD8jD8zMz/NuFsp+Q4OcyCwCFoTyUvVOLbLU+Nkc24BCVNi0Lh651vxqlP1PdaskqyjDYuWYZSkWrxjvzxGVZBK0XqffpB9Kd/3lnCKmgwotnMXjzvhNAD4/HS1zVLQLf0udD9IlOFJ0QwlC1RN6SBeCcV2uZ3/sxpr2ENj92/9qaeFMl+tXsRifdhU9eVwWmMoHy1W/eZe94i6gjKBj7ZPsgzD09G+lMbQ7S/l9gf4hT/NJij/nrgP2msKi+tbhbDqJU/fwSrfLdzV81f9AqzZBAVDalblsAHiJ/KanjYThomaEMSvCiR0bmmoav34olWmH8CYAkZRVV6Ll64bv8lME58kOP7sxYN753YLh41PxjDLH4w3MVfNwgTbkVunOu7d5C2C49vljdwWmDGuAxdtqv0YP++NqP8m9eDIZ7UjiNZ7G4XiTziPZvP8TIzNVGaGuxTpZhQefVruyWn5FnILM24z2kFN7RrxgVp6r9/XJZ9lqlhT4jDCUmnTzBZYytsijUBI5oHL2GQRWxng4Hbaje6qLoeKmn4OZ090QqmYzGU8scuSe3Pcqn/av6tEKM95eQJOrp3ZqDNUQpRLMGqrQlJkpLOZIYg7O6DvhDwdyqCnBfuhOnBKXs+18iSR05hhD19/bS
+    password: AgBaQv288wo7U7i3yFxb53i5JGv3kLXWoMAsUM7bkW+fs2xU5Nq94Yc54Ql9BBE0TCfyPL4Zy0Qfyrk9g+qzL20vJkWI7VTT68nHw+GTy7cLmDBCRfFgdW48wUEBp6aBxT+k4Mi6thNhDsxE1hU8RTA7KReZfgfFgemutU2jwmNuiBhG3agz5Kjl65fNexBh5FwDarSUoXqlk1fJBzwHk5RlUT4ChbvWc23Y84izhRBNhbpqv/taHvRt8sTwSrXX02OzODhwT4GfNBXtUD2Nnpxl05GALbfOjLV60hB0zSOfY9yrMRHJG/ANio+egdBjr/QGIrrhJY9aRQjGPBYhcH6RkfqAbJxcHEMV3iX2aQ4skXhrYuPeEQupG6an5FdOCTFAvVYNBYCUxhS82B/G984FaFxLtLRtw/wnVTNC7LUxZ7Ymn0KBK1X7Y5S9FUAIGU87tr9C3Ya72FUBLKrCsecT/6H1AvP7rq1g7Ebwk25isEeVh5o8JqYpAa8LYdn0iaIlJX0sgk1l003MdL1UTJo+wxCTSGNHDQFk2gpmddstCwhxXGUuOLrko9DPdXKtU9oSUcRbftoWcPscLDD1JkBk/x62XQAZArdomeJPeGUE3XOcbg7Y+HxDxFl7NwA3qwLVA25EE+55LXyjmTpz3l3eTZBq9bHw9WYkVGZblIVgU/Rx2rCm3zViCrUHguZ3PM8WLEsA+acv/HtoRLvjW/Pxqs10uw4t1eWRFzOSYkb2pOw95Bg90VbRlgSLdDt4Sx5rEkrVXCkXaw3lsbL3Oxs=
+    username: AgCJHoIfRfk7/LgpwOAPcHBaLHl26zEaMOkkrWzNOp5T8/QXQTdEhxmPelt/Vx/sWrJV9tfZYJSmY97jx6vX2bqZPVMc89XDi7Jush0wAWxwE9VNIiVkPE+YS6HJzqonAR9Ioe+XM7IP8IQepGV6CGKhptMfGRFrcu47UCBd0XmC78yH3al8dnTS6+PDrfmUd4ShD3xWM1zTe/ZjW0tj9ug1SzZl9Fi1ieFiuitc8pf5QNeeo2s4JEBUTjfdiN5fWkiYL3K8wX3c6gdQoYilQcXl3z9G55n8C2mjgJ1R2a7J4FDxePK6jE5Yjzta8Z9M9WMwT5UXi5yP0+1L8/bWDL/uTv8+yUgRU7Lee0ppyzacsYphla7+GCvOgz4+AYIOmAtwoOVxhgx8k8rHcoVlSLJBsR4VeTZQDdo93g9q9RhJnY5JNuMnl5WTKQsqrHSokis7+OyCSoFjdvc5//ERrQ7RK5/j1f7WY/GyZlnZ2AmQKYd8i3GbuKaow+H9731Y6RWdlY4zjnzSWZNPONtvw8Etn24mtLsrWs/OQcMZMUJtN7q2yRM8qT3augbMCwZl/KBFVhf/FeW6W+KFmnaDeY3Ku+HwG2NmVd64lyfgAqsidKejlntowWbdDu2dAJl4Y+jGAeqRKnP+z1dtpPS9Ar47JS5gfZ8g1FezCOta0Gl49Qfrnema11GCZG2c/nKhcFdMhug9vIOiTOCQwTk=
+  template:
+    metadata:
+      creationTimestamp: null
+      name: gitea-admin-secret
+      namespace: gitea
+    type: Opaque
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    helm.sh/hook: test-success
+  labels:
+    app: gitea
+    app.kubernetes.io/instance: git
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: gitea
+    app.kubernetes.io/version: 1.17.3
+    helm.sh/chart: gitea-6.0.3
+    version: 1.17.3
+  name: git-gitea-test-connection
+  namespace: gitea
+spec:
+  containers:
+  - args:
+    - git-gitea-http:3000
+    command:
+    - wget
+    image: busybox
+    name: wget
+  restartPolicy: Never

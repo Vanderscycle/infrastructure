@@ -12,5 +12,5 @@ resources:
   - application-secrets.yaml
   - application-projects.yaml
   - application-support.yaml
-  - application-gitea.yaml
+  # - application-gitea.yaml
   # - application-argocd.yaml

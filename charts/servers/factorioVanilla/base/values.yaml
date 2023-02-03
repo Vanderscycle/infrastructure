@@ -1,6 +1,6 @@
 rcon:
-  external: true
-  passwordSecret: 'factorio-admin-secret'
+  external: false
+  # passwordSecret: 'factorio-admin-secret'
 
 resources:
   requests:
