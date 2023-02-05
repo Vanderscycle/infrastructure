@@ -5,13 +5,12 @@ namespace: uptime-kuma
 
 resources:
   - ../../base
-
 # For easy ns replacement
-patches:
-  - target:
-      kind: Namespace
-      name: uptime-kuma
-    patch: |-
-      - op: replace
-        path: /metadata/name
-        value: uptime-kuma
+# patches:
+#   - target:
+#       kind: Namespace
+#       name: uptime-kuma
+#     patch: |-
+#       - op: replace
+#         path: /metadata/name
+#         value: uptime-kuma

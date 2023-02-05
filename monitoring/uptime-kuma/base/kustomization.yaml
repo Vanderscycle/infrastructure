@@ -7,14 +7,15 @@ commonLabels:
   app.kubernetes.io/instance: uptime-kuma
   app.kubernetes.io/part-of: infrastructure
 
-labels:
-  - pairs:
-      app.kubernetes.io/component: uptime-kuma
-    includeTemplates: true
+# labels:
+#   - pairs:
+#       app.kubernetes.io/component: uptime-kuma
+#     includeTemplates: true
 
-resources:
-  - deployment.yaml
-  - service.yaml
-  - ingress.yaml
-  - namespace.yaml
-  - persistentvolumeclaim.yaml
+helmCharts:
+  - name: uptime-kuma
+    version: 2.5.6
+    repo: https://dirsigler.github.io/uptime-kuma-helm
+    valuesFile: values.yaml
+    namespace: uptime-kuma
+    # releaseName: monitoring
