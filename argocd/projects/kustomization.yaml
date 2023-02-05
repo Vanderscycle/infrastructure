@@ -9,5 +9,5 @@ resources:
   - project-factorio.yaml
   - project-support.yaml
   - project-monitoring.yaml
-  # - project-dns.yaml
+  - project-cloud.yaml
   # - project-argocd.yaml

@@ -7,6 +7,7 @@ resources:
   - application-root.yaml
   - application-factorio.yaml
   - application-monitoring.yaml
+  - application-cloud.yaml
   # - application-dns.yaml
   # - application-cicd.yaml
   - application-secrets.yaml

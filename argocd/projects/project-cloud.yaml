@@ -1,14 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: gitea
+  name: cloud
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  description: A self-hosted gitea server
+  description: Infrastructure declarative config for cloud tools
   destinations:
-    - namespace: gitea
+    - namespace: nextcloud
       server: https://kubernetes.default.svc
     - namespace: kube-system
       server: https://kubernetes.default.svc
