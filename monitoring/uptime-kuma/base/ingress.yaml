@@ -21,7 +21,7 @@ spec:
   tls:
     - hosts:
         - uptime.vandersleyen.dev
-      secretName: example-tls
+      secretName: uptime-kuma-tls
   rules:
     - host: uptime.vandersleyen.dev
       http:
