@@ -3,6 +3,8 @@ secret.yaml
 *-kubeconfig.yaml
 
 charts/**/charts/
+monitoring/**/charts/
+
 **/tls/*.pem
 **/tls/*.csr
 
