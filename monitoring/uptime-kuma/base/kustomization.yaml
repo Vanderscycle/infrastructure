@@ -18,4 +18,4 @@ helmCharts:
     repo: https://dirsigler.github.io/uptime-kuma-helm
     valuesFile: values.yaml
     namespace: uptime-kuma
-    # releaseName: monitoring
+    releaseName: monitoring

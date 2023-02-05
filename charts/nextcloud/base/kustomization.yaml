@@ -18,4 +18,4 @@ helmCharts:
     repo: https://nextcloud.github.io/helm/
     valuesFile: values.yaml
     namespace: nextcloud
-    # releaseName: monitoring
+    releaseName: cloud
