@@ -33,7 +33,6 @@ global:
 
   leaderElection:
     # Override the namespace used for the leader election lease
-    # namespace: "kube-system"
     namespace: "cert-manager"
 
     # The duration that non-leader candidates will wait after observing a
@@ -177,9 +176,10 @@ podLabels: {}
 nodeSelector:
   kubernetes.io/os: linux
 
-ingressShim: #{}
-  defaultIssuerName: "letsencrypt-prod"
-  defaultIssuerKind: "ClusterIssuer"
+ingressShim:
+  {}
+  # defaultIssuerName: ""
+  # defaultIssuerKind: ""
   # defaultIssuerGroup: ""
 
 prometheus:
