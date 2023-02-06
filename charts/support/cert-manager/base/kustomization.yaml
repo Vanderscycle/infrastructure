@@ -11,3 +11,11 @@ helmCharts:
     valuesFile: values.yaml
     namespace: cert-manager
     releaseName: support
+# patches:
+#   - target:
+#       kind: Deployment
+#       name: support-cert-manager-controller
+#     patch: |-
+#       - op: replace
+#         path: /spec/template/spec/containers/0/image
+#         value: docker.io/bitnami/cert-manager:1.11.0
