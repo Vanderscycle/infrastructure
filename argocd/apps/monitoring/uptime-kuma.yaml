@@ -10,7 +10,7 @@ spec:
     server: https://kubernetes.default.svc
   project: monitoring
   source:
-    path: monitoring/uptime-kuma
+    path: charts/monitoring/uptime-kuma
     repoURL: git@github.com:Vanderscycle/infrastructure.git
     targetRevision: main
   syncPolicy:
