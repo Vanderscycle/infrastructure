@@ -7,6 +7,9 @@ commonLabels:
   app.kubernetes.io/instance: nextcloud
   app.kubernetes.io/part-of: infrastructure
 
+resources:
+  - secrets
+
 # labels:
 #   - pairs:
 #       app.kubernetes.io/component: uptime-kuma

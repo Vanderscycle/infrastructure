@@ -21,7 +21,7 @@ replicaCount: 1
 ## ref: https://kubernetes.io/docs/concepts/services-networking/ingress/
 ##
 ingress:
-  enabled: false
+  enabled: true
   # className: nginx
   annotations: {}
   #  nginx.ingress.kubernetes.io/proxy-body-size: 4G
@@ -71,15 +71,15 @@ phpClientHttpsFix:
   protocol: https
 
 nextcloud:
-  host: nextcloud.kube.home
-  username: admin
-  password: changeme
+  host: nextcloud.vandersleyen.dev
+  # username: admin
+  # password: changeme
   ## Use an existing secret
   existingSecret:
-    enabled: false
-    # secretName: nameofsecret
-    # usernameKey: nextcloud-username
-    # passwordKey: nextcloud-password
+    enabled: true
+    secretName: nextcloud-secret
+    usernameKey: nextcloud-username
+    passwordKey: nextcloud-password
     # tokenKey: nextcloud-token
     # smtpUsernameKey: smtp-username
     # smtpPasswordKey: smtp-password
