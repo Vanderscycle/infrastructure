@@ -11,4 +11,4 @@ helmCharts:
     repo: https://charts.bitnami.com/bitnami
     valuesFile: values.yaml
     namespace: external-dns
-    releaseName: dns
+    releaseName: support

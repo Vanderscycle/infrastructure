@@ -10,4 +10,4 @@ helmCharts:
     repo: https://kubernetes.github.io/ingress-nginx
     valuesFile: values.yaml
     namespace: ingress-nginx
-    releaseName: nginx
+    releaseName: support

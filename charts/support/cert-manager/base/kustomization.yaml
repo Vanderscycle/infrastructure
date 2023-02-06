@@ -10,4 +10,4 @@ helmCharts:
     repo: https://charts.jetstack.io
     valuesFile: values.yaml
     namespace: cert-manager
-    # releaseName: cert-mgr
+    releaseName: support
