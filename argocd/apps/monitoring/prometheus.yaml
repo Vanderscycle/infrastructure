@@ -1,25 +1,25 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: prometheus-crds
-spec:
-  destination:
-    namespace: prometheus
-    server: https://kubernetes.default.svc
-  project: monitoring
-  source:
-    repoURL: https://github.com/prometheus-community/helm-charts.git
-    path: charts/monitoring/prometheus/crds/
-    targetRevision: kube-prometheus-stack-44.3.1
-    directory:
-      recurse: true
-  syncPolicy:
-    automated:
-      selfHeal: true
-    syncOptions:
-      - Replace=true
-      - CreateNamespace=true
----
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: prometheus-crds
+# spec:
+#   destination:
+#     namespace: prometheus
+#     server: https://kubernetes.default.svc
+#   project: monitoring
+#   source:
+#     repoURL: https://github.com/prometheus-community/helm-charts.git
+#     path: charts/monitoring/prometheus/crds/
+#     targetRevision: kube-prometheus-stack-44.3.1
+#     directory:
+#       recurse: true
+#   syncPolicy:
+#     automated:
+#       selfHeal: true
+#     syncOptions:
+#       - Replace=true
+#       - CreateNamespace=true
+# ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -35,8 +35,8 @@ spec:
     path: charts/monitoring/prometheus
     repoURL: git@github.com:Vanderscycle/infrastructure.git
     targetRevision: main
-    helm:
-      skipCrds: true
+    # helm:
+    #   skipCrds: true
   syncPolicy:
     automated:
       prune: true
