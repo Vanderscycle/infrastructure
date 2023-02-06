@@ -9,7 +9,7 @@ spec:
   project: monitoring
   source:
     repoURL: https://github.com/prometheus-community/helm-charts.git
-    path: charts/kube-prometheus-stack/crds/
+    path: charts/monitoring/prometheus/crds/
     targetRevision: kube-prometheus-stack-39.9.0
     directory:
       recurse: true
