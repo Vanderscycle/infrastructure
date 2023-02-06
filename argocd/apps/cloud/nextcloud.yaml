@@ -10,7 +10,7 @@ spec:
     server: https://kubernetes.default.svc
   project: cloud
   source:
-    path: charts/nextcloud
+    path: charts/cloud/nextcloud
     repoURL: git@github.com:Vanderscycle/infrastructure.git
     targetRevision: main
   syncPolicy:
