@@ -7,7 +7,7 @@ metadata:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     nginx.ingress.kubernetes.io/ssl-passthrough: "true"
-  name: main_ingress_point
+  name: mainIngressPoint
 spec:
   rules:
     - host: nextcloud.vandersleyen.dev
@@ -15,7 +15,7 @@ spec:
         paths:
           - backend:
               service:
-                name: cloud-nextcloud.nextcloud
+                name: "cloud-nextcloud.nextcloud"
                 port:
                   number: 8080
             path: /
@@ -25,7 +25,7 @@ spec:
         paths:
           - backend:
               service:
-                name: argocd-server.argocd
+                name: "argocd-server.argocd"
                 port:
                   number: 80
             path: /
