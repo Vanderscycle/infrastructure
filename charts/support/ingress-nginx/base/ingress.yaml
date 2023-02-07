@@ -25,9 +25,9 @@ spec:
         paths:
           - backend:
               service:
-                name: cloud-nextcloud.nextcloud
+                name: argocd-server.argocd
                 port:
-                  number: 8080
+                  number: 80
             path: /
             pathType: Prefix
   tls:
