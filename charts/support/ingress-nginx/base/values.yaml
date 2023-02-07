@@ -9,8 +9,8 @@
 
 ## Labels to apply to all resources
 ##
-commonLabels:
-  app.kubernetes.io/part-of: infrastructure
+# commonLabels:
+#   app.kubernetes.io/part-of: infrastructure
 
 controller:
   name: controller
