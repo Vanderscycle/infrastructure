@@ -3,6 +3,7 @@ secret.yaml
 *-kubeconfig.yaml
 
 charts/**/charts/
+# no you are not getting my secrets
 monitoring/**/charts/
 
 **/tls/*.pem
