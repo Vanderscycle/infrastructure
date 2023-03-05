@@ -7,3 +7,4 @@
 
 # add a ci where it kustomize build 
 
+testing
