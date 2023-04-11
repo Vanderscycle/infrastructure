@@ -1,0 +1,19 @@
+collections:
+  - name: community.general
+    version: 5.8.0
+    source: https://galaxy.ansible.com
+  - name: community.docker
+    version: 2.7.1
+    source: https://galaxy.ansible.com
+  - name: ansible.posix
+    version: 1.4.0
+    source: https://galaxy.ansible.com
+  - name: devsec.hardening
+    version: 8.3.0
+    source: https://galaxy.ansible.com
+  - name: community.hashi_vault
+    version: 3.3.1
+    type: galaxy
+
+roles:
+  - src: geerlingguy.docker

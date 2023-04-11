@@ -1,0 +1,101 @@
+
+- hosts: proxmox
+  gather_facts: true
+  become: yes
+  roles:
+    - role: proxmox_lxc
+      when: proxmox_lxc_configure
+
+- hosts: k3s_cluster
+  gather_facts: yes
+  roles:
+    - role: lxc
+      become: true
+      when: proxmox_lxc_configure
+    - role: prereq
+      become: true
+    - role: download
+      become: true
+    - role: raspberrypi
+      become: true
+
+- hosts: master
+  roles:
+    - role: k3s/master
+      become: true
+
+- hosts: node
+  roles:
+    - role: k3s/node
+      become: true
+
+- hosts: master
+  roles:
+    - role: k3s/post
+      become: true
+
+- hosts: all
+  collections:
+    - devsec.hardening
+
+  tasks:
+  - name: Example from an Ansible Playbook
+    ansible.builtin.ping:
+
+  - name: Update all packages to their latest version
+    apt:
+      name: "*"
+      state: latest
+      update_cache: yes
+    become: yes
+
+    # - name: Install prerequisites
+    #   ansible.builtin.apt:
+    #     update_cache: true
+    #     name: "{{ item }}"
+    #     state: present
+    #   with_items:
+    #     - jq=^1.6-2.1
+    #     - gnupg2=^2.2.27 # dependency for docker
+    #     - python3-pip>=20.3.4
+    #   tags: prerequisites
+
+    # - name: Install PyPI packages
+    #   ansible.builtin.pip:
+    #     name:
+    #       - docker-compose>1.29.0,<2.0.0
+    #   tags: prerequisites
+
+  roles:
+  #   - role: volumes
+  #     tags: volumes
+
+  #   - role: ssh_hardening
+  #     tags:
+  #       - security
+  #       - ssh
+
+  #   - role: os_hardening
+  #     tags:
+  #       - security
+  #       - os
+
+    - role: geerlingguy.docker
+      tags: docker
+
+  #   - role: iam
+  #     tags: iam
+
+  #   - role: backfill
+  #     tags: backfill
+
+  #   - role: certbot
+  #     tags: certbot
+
+  #   - role: services
+  #     tags: services
+
+  #   - role: rclone-sync
+  #     tags: rclone
+  #     vars:
+  #       rclone_data_directory: "{{ data_disk_mount_path }}"

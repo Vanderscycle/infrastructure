@@ -1,0 +1,18 @@
+- hosts: all
+  collections:
+    - devsec.hardening
+
+  tasks:
+  - name: Example from an Ansible Playbook
+    ansible.builtin.ping:
+
+  - name: Update all packages to their latest version
+    apt:
+      name: "*"
+      state: latest
+      update_cache: yes
+    become: yes
+
+  roles:
+    - role: geerlingguy.docker
+      tags: docker

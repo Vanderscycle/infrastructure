@@ -1,8 +1,0 @@
-all:
-  hosts:
-    linode:
-      ansible_user: root
-      ansible_host: "{{ LINODE_IP }}"
-      # ansible_host: ansible_env['LINODE_IP']
-      # ansible_ssh_pass: ansible_env['LINODE_PASS']
-      ansible_ssh_pass: "{{ LINODE_PASS }}"
