@@ -1,13 +1,23 @@
-resource "linode_domain" "printer_exchange" {
-  type      = "master"
-  domain    = "3dprinterexchange.dev"
-  soa_email = "henri-vandersleyen@protonmail.com"
-}
+resource "linode_lke_cluster" "infrastructure" {
+    label       = var.lke_region
+    k8s_version = var.k8s_version
+    region      = var.lke_region
+    tags        = ["prod"]
 
-resource "linode_domain_record" "printer_exchange" {
-  domain_id   = linode_domain.printer_exchange.id
-  name        = "www"
-  record_type = "CNAME"
-  target      = "3dprinterexchange.dev"
-  ttl_sec     = 300
+    pool {
+        type  = var.linode_instances_type
+        count = 3
+
+        autoscaler {
+          min = 3
+          max = 10
+        }
+    }
+
+  # Prevent the count field from overriding autoscaler-created nodes
+  lifecycle {
+    ignore_changes = [
+      pool.0.count
+    ]
+  }
 }
