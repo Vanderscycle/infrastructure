@@ -1,10 +1,10 @@
 
 module "dns" {
   source         = "./modules/dns"
-  token = var.token
+  token = var.LINODE_TOKEN
 }
 
 module "lke" {
   source         = "./modules/lke"
-  token = var.token
+  token = var.LINODE_TOKEN
 }
