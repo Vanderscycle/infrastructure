@@ -22,7 +22,9 @@ variable "linode_instances_type" {
   default = "g6-standard-1"
   type        = string
 }
-variable "token" {
+
+variable "LINODE_TOKEN" {
   description = "The token used to authenticate with Terraform Cloud/Enterprise."
   type        = string
+  default = ""
 }

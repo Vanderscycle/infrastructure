@@ -1,3 +1,3 @@
 provider "linode" {
-  token = var.token
+  token = var.LINODE_TOKEN
 }
