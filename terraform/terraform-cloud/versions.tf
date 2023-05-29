@@ -5,7 +5,7 @@ terraform {
   cloud {
     organization = "vandersleyen"
     workspaces {
-      name = "K8s"
+      name = "linode_infrastructure"
     }
   }
   required_providers {

@@ -12,7 +12,7 @@ variable "tfe_organization_email" {
 
 variable "tfe_workspace_name" {
   description = "Name of the workspace"
-  default     = "K8s"
+  default     = "linode_infrastructure"
   type        = string
 }
 

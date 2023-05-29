@@ -5,5 +5,5 @@ data "linode_object_storage_cluster" "primary" {
 resource "linode_object_storage_bucket" "tf_state" {
   cluster = data.linode_object_storage_cluster.primary.id
   # cluster = "ca-central-1"
-  label   = "infra-tf-state"
+  label = "infra-tf-state"
 }
