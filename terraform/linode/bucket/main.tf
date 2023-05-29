@@ -1,13 +1,9 @@
-resource "linode_domain" "printer_exchange" {
-    type = "master"
-    domain = "3dprinterexchange.dev"
-    soa_email = "henri-vandersleyen@protonmail.com"
+data "linode_object_storage_cluster" "primary" {
+  id = "us-east-1"
 }
 
-resource "linode_domain_record" "printer_exchange" {
-    domain_id = linode_domain.printer_exchange.id
-    name = "www"
-    record_type = "CNAME"
-    target = "3dprinterexchange.dev"
-    ttl_sec = 300
+resource "linode_object_storage_bucket" "tf_state" {
+  cluster = data.linode_object_storage_cluster.primary.id
+  # cluster = "ca-central-1"
+  label   = "infra-tf-state"
 }
