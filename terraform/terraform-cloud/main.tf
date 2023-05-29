@@ -6,5 +6,6 @@
 resource "tfe_workspace" "main-workspace" {
   name         = var.tfe_workspace_name
   organization = var.tfe_organization_name
+  description = "Workspace containing all of k8s services"
   tag_names    = ["gitops", "k8s"]
 }

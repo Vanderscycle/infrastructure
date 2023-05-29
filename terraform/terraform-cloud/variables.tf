@@ -16,7 +16,7 @@ variable "tfe_workspace_name" {
   type = string
 }
 
-variable "provider_token" {
-  type = string
-  sensitive = true
-}
+# variable "provider_token" {
+#   type = string
+#   sensitive = true
+# }

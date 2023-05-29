@@ -1,11 +1,11 @@
 terraform {
 
   required_version = ">= 1.0.1"
-  cloud {
-    organization = "{{ORGANIZATION_NAME}}"
 
+  cloud {
+    organization = "vandersleyen"
     workspaces {
-      name = "{{WORKSPACE_NAME}}"
+      name = "K8s"
     }
   }
 
