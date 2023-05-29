@@ -1,0 +1,7 @@
+#+title: Docs
+
+* Terraform
+
+** Modules used
+- [[https://registry.terraform.io/providers/hashicorp/tfe/latest][Linode]]
+-[[https://registry.terraform.io/providers/hashicorp/tfe/latest][Terraform Cloud]]
