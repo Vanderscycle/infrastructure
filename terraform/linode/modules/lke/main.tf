@@ -1,5 +1,5 @@
 module "linode_lke_cluster" "infrastructure" {
-  label       = var.lke_region
+  label       = var.lke_label
   k8s_version = var.k8s_version
   region      = var.lke_region
   tags        = ["prod"]
