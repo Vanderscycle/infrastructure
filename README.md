@@ -1,10 +1,11 @@
 # k8s personal infrastructure
 
-## TODO 
-* configure kubeseal
-* configure the dns, redirect, 
-* figure out reverse dns.
+Hosted on linode using terraform and terraform cloud
 
-# add a ci where it kustomize build 
+## spin new instance
 
-testing
+1. cd into ./charts/argocd/overlays/prod/
+2. kustomize build --load-restrictor LoadRestrictionsNone --enable-helm . | k apply -f -
+3. change the password https://argo-cd.readthedocs.io/en/stable/getting_started/
+4. add the github repo
+5. configure sealed-secrets <- where I am 
