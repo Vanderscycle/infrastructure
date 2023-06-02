@@ -8,12 +8,10 @@ resources:
   - argocd.yaml
   # - ./charts/Chart.yaml
 
-# helmChartInflationGenerator:
-# - chartName: argo 
-#   chartRepoUrl: https://argoproj.github.io/argo-helm
-#   # chartVersion: 9.5.4
+# helmCharts:
+# - name: argo
+#   version: 5.34.6
+#   repo: https://argoproj.github.io/argo-helm
 #   releaseName: argocd
-#   releaseNamespace: argocd
-#   values: values.yaml
-
-
+#   namespace: argocd
+#   valuesFile: values.yaml
