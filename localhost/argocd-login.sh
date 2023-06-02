@@ -14,7 +14,7 @@ argocd login "$NODE_BALANCE_IP" \
 
 # adds the relevant repo
 argocd repo add git@github.com:Vanderscycle/infrastructure.git \
-  --ssh-private-key-path "$KEY_PATH" \
+  --ssh-private-key-path "$HOME/.ssh/endeavourGit" \
   --insecure-ignore-host-key \
   --name infrastructure
 

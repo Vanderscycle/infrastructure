@@ -5,8 +5,8 @@ namespace: argocd
 
 resources:
   - application-root.yaml
-  - application-factorio.yaml
-  - application-monitoring.yaml
+  # - application-factorio.yaml
+  # - application-monitoring.yaml
   - application-cloud.yaml
   # - application-dns.yaml
   # - application-cicd.yaml
