@@ -8,6 +8,8 @@ kubesealCmd: list[str] = [
     "kubeseal",
     "--cert",
     f"{rootDir}/kubeseal-public.pem",
+    "-o",
+    "yaml",
     "-f",
 ]
 
@@ -18,5 +20,5 @@ for relPath, dirs, files in os.walk(rootDir):
 for secretPath in secretFilesPath:
     secretFile: str = f"{secretPath}/sealed-secret.yaml"
     print(secretFile, kubesealCmd + [f"{secretPath}/{fileToSearch}"])
-    # with open(secretFile, "w") as f:
-    #     subprocess.run(kubesealCmd + [f"{secretPath}/{fileToSearch}"], stdout=f)
+    with open(secretFile, "w") as f:
+        subprocess.run(kubesealCmd + [f"{secretPath}/{fileToSearch}"], stdout=f)
