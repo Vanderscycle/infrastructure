@@ -1,9 +1,9 @@
 module "dns" {
-  source         = "./modules/dns"
+  source         = "../modules/linode/dns"
 }
 
 module "lke" {
-  source         = "./modules/lke"
+  source         = "../modules/linode/lke"
 }
 
 # module "bucket" {
