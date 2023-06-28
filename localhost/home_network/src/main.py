@@ -10,5 +10,9 @@ def main():
             internals = Router("Linksys00356") >> Switch("24 poe network switch")
 
 
+def test():
+    print("hello world")
+
+
 if __name__ == "__main__":
     main()
