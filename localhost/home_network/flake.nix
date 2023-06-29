@@ -1,6 +1,6 @@
 { 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   };
   
   outputs = { self, nixpkgs }: 
@@ -11,9 +11,10 @@
   {
     # using application function
     packages.${system}.default = pkgs.poetry2nix.mkPoetryApplication {
-      projectDir = self;
+      projectDir = ./.;
     };
     # nix eval .#foo
     foo = "bro";
   };
 }
+# nix build (to build flakes) outputs will be 
