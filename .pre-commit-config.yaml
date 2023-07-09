@@ -6,9 +6,15 @@ repos:
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
-      - id: check-yaml
       - id: check-added-large-files
-  - repo: https://github.com/Yelp/detect-secrets
-    rev: v1.4.0
+  # WARN: yaml not found
+  # - repo: https://github.com/Yelp/detect-secrets
+  #   rev: v1.4.0
+  #   hooks:
+  #   -   id: detect-secrets
+  #       args: ['--baseline', '.secrets.baseline']
+  #       exclude: package.lock.json
+  - repo: https://github.com/adrienverge/yamllint.git
+    rev: v1.29.0
     hooks:
-      - id: detect-secrets
+      - id: yamllint

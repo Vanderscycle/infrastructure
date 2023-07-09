@@ -10,6 +10,11 @@ Hosted on linode using terraform and terraform cloud
 4. add the github repo
 5. fetch sealed secret key kubeseal --fetch-pem > kubeseal-public.pem
 
-## Cloud 
+## Cloud
 
 Using Linode to host
+
+## Resources
+- terraform
+- yaml
+- k8s
