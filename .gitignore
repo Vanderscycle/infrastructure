@@ -13,3 +13,5 @@ monitoring/**/charts/
 
 *.log
 node_modules
+# nix flake
+**/result
