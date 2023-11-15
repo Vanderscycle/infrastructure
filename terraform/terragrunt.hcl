@@ -77,3 +77,9 @@ generate "config" {
     }
   EOF
 }
+generate "tfvars" {
+  path      = "terragrunt.auto.tfvars.json"
+  if_exists = "overwrite"
+  disable_signature = true
+  contents = jsonencode({name = "your-name"})
+}
