@@ -19,6 +19,7 @@ output "cloud_provider" {
 output "kubeconfig" {
   value       = linode_lke_cluster.infrastructure.kubeconfig
   description = "The base64 encoded kubeconfig for the Kubernetes cluster."
+  sensitive = true
 }
 
 output "dashboard_url" {
