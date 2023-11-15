@@ -1,6 +1,6 @@
-output "cloud_provider" {
-  value = var.cloud_provider
-}
+# output "cloud_provider" {
+#   value = var.cloud_provider
+# }
 output "region" {
   value = var.region
 }

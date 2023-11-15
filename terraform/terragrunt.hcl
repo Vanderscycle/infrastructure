@@ -1,3 +1,6 @@
+#
+# https://terragrunt.gruntwork.io/docs/reference/built-in-functions/
+
 locals {
 
   cloud_provider  = split("/", path_relative_to_include())[2]
@@ -15,6 +18,7 @@ locals {
 inputs = {
   env         = local.env
   region      = local.region
+  cloud_provider      = local.cloud_provider
 }
 
 
@@ -57,6 +61,7 @@ generate "config" {
       required_version = ">= 1.3.0"
 
       cloud {
+        hostname     = "app.terraform.io"
         organization = "vandersleyen"
         workspaces {
           name = "linode_infrastructure"
