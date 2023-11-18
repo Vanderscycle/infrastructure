@@ -19,8 +19,8 @@ inputs = {
   env         = local.env
   region      = local.region
   cloud_provider      = local.cloud_provider
+  LINODE_TOKEN = get_env("LINODE_TOKEN", local.default_token)
 }
-
 
 #
 # Consume a config.tfvars var file located in the same directory as the child terragrunt.hcl file.
@@ -83,6 +83,7 @@ generate "provider" {
   contents  = <<EOF
   provider "linode" {
     token = var.LINODE_TOKEN
+
   }
   EOF
 }
