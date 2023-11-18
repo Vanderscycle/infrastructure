@@ -1,8 +1,18 @@
 variable "region" {}
 variable "env" {}
 variable "cloud_provider" {}
+variable "LINODE_TOKEN" {}
 
-variable "test_value" {}
+variable "autoscaler_min" {
+  description = "Minimum number of nodes in the Node Pool."
+  default     = 2
+  type        = number
+}
+variable "autoscaler_max" {
+  description = "Maximum number of nodes in the Node Pool."
+  default     = 10
+  type        = number
+}
 
 variable "lke_label" {
   description = "Unique cluster's label"
@@ -22,12 +32,12 @@ variable "lke_region" {
 
 variable "linode_instances_type" {
   description = "Linode Type for all of the nodes in the Node Pool."
-  default     = "g6-nanode-1"
+  default     = "g6-standard-2"
   type        = string
 }
 
-variable "LINODE_TOKEN" {
-  description = "The token used to authenticate with Terraform Cloud/Enterprise."
-  type        = string
-  default     = ""
+variable "tags" {
+  description = "Tags to apply to all Linode resources."
+  type        = list(string)
+  default     = ["terraform"]
 }

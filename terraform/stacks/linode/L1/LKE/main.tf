@@ -1,22 +1,20 @@
-resource "null_resource" "default" {
-  provisioner "local-exec" {
-    command = "echo ${var.test_value}"
-  }
+locals {
+  name = "${var.env}-${var.region}-${var.cloud_provider}"
 }
 
 resource "linode_lke_cluster" "infrastructure" {
-  label       = var.lke_label
+  label       = local.name
   k8s_version = var.k8s_version
   region      = var.lke_region
-  tags        = ["prod"]
+  tags        = var.tags
 
   pool {
     type  = var.linode_instances_type
-    count = 2
+    count = var.autoscaler_min
 
     autoscaler {
-      min = 2
-      max = 10
+      min = var.autoscaler_min
+      max = var.autoscaler_max
     }
   }
 

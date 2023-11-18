@@ -1,16 +1,8 @@
-# output "cloud_provider" {
-#   value = var.cloud_provider
-# }
 output "region" {
   value = var.region
 }
 output "env" {
   value = var.env
-}
-
-
-output "test" {
-  value       = var.test_value
 }
 output "cloud_provider" {
   value = var.cloud_provider
