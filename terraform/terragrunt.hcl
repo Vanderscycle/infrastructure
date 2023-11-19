@@ -10,6 +10,7 @@ locals {
 
   path_to_common  = replace(get_terragrunt_dir(), "env/${local.cloud_provider}/", "env/common")
   path_to_tfstate = replace(path_relative_to_include(), "env/${local.cloud_provider}/", "")
+  default_token = ""
 }
 
 #
