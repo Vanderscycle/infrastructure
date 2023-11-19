@@ -16,3 +16,10 @@ Consult the [docs](https://argo-cd.readthedocs.io/en/stable/getting_started/) bu
 ```bash
 argocd admin initial-password -n argocd
 ```
+
+## Configuration
+
+Add the `infra` repo and an ssh key:
+`kubectl create secret generic my-ssh-secret --from-file=sshPrivateKey=/path/to/your/private/key`
+
+Then add your ssh + repo using argocd

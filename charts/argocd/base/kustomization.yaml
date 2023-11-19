@@ -6,6 +6,7 @@ namespace: argocd
 resources:
   - namespace.yaml
   - argocd.yaml
+  - argocd-repo.yaml
   # - ./charts/Chart.yaml
 
 # helmCharts:

@@ -4,8 +4,8 @@ kind: Kustomization
 namespace: argocd
 
 resources:
-  - application-root.yaml
-  # - application-factorio.yaml
+  # - application-root.yaml # argocd
+  - application-factorio.yaml
   # - application-monitoring.yaml
   - application-cloud.yaml
   # - application-dns.yaml

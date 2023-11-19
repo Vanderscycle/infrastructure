@@ -4,4 +4,4 @@ kind: Kustomization
 resources:
   - external-dns.yaml
   - cert-manager.yaml
-  - ingress-nginx.yaml
+  # - ingress-nginx.yaml
