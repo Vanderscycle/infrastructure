@@ -6,7 +6,7 @@ resources:
   - project-gitea.yaml
   - project-secrets.yaml
   - project-applications.yaml
-  - project-factorio.yaml
+  - project-servers.yaml
   - project-support.yaml
   - project-monitoring.yaml
   - project-cloud.yaml
