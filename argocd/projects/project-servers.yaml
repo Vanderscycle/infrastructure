@@ -20,5 +20,5 @@ spec:
     - group: "*"
       kind: "*"
   sourceRepos:
-    - '*'
+    - "*"
     # - git@github.com:Vanderscycle/infrastructure.git

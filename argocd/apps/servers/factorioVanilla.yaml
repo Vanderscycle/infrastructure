@@ -8,7 +8,7 @@ spec:
   destination:
     namespace: factorio
     server: https://kubernetes.default.svc
-  project: factorio
+  project: servers
   source:
     path: charts/servers/factorioVanilla
     repoURL: git@github.com:Vanderscycle/infrastructure.git

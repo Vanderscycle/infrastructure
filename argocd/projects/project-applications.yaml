@@ -4,7 +4,7 @@ metadata:
   name: applications
   namespace: argocd
   # finalizers:
-    # - resources-finalizer.argocd.argoproj.io
+  # - resources-finalizer.argocd.argoproj.io
 spec:
   description: Project for parent applicatons used when employing app of apps
   destinations:
@@ -21,7 +21,7 @@ spec:
   # sourceRepos:
   #   - git@github.com:Vanderscycle/infrastructure.git
   sourceRepos:
-    - '*'
+    - "*"
   # destinations:
   #   - namespace: '*'
   #     server: '*'
