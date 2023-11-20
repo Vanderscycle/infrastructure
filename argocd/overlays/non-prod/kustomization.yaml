@@ -15,21 +15,3 @@ patches:
     target:
       kind: Application
       name: .*
-  - patch: |-
-      - op: replace
-        path: /spec/type
-        value: LoadBalancer
-    target:
-      kind: Service
-      name: argocd-server
-      namespace: argocd
-      version: v1
-  - patch: |-
-      - op: add
-        path: /data/kustomize.buildOptions
-        value: "--enable-helm"
-    target:
-      kind: ConfigMap
-      name: argocd-cm
-      namespace: argocd
-      version: v1

@@ -23,3 +23,5 @@ Add the `infra` repo and an ssh key:
 `kubectl create secret generic my-ssh-secret --from-file=sshPrivateKey=/path/to/your/private/key`
 
 Then add your ssh + repo using argocd
+
+the `argocd-repo.yaml` file contains everything except the ssh key.

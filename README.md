@@ -27,6 +27,7 @@ TODO: (18/11/2023)
 
 good progress
 have the domain names + lke up
+get the sealed secrets back working again
 
 fix the professional website (new branch) and serve it no backend
 get a dns up + a few chart services too (get confident again with kubectl)
