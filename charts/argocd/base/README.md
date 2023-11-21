@@ -1,12 +1,15 @@
 # Argocd - kustomize
 
 Currently I have this weird bug that if I use the template files on nixos there are no issues. However, when I update argocd helm chart to `5.51.2` there is an error about my `kubernetes` version being 1.20 even though I have 1.27.
+
 ```bash
 Error: chart requires kubeVersion: >=1.23.0-0 which is incompatible with Kubernetes v1.20.0
 ```
+
 ## Usage
 
 Ensure you have kubectl, helm, argo-cd, kustomize before running the install command:
+
 ```bash
 kustomize build --enable-helm devops/overlays/prod | kubectl apply -f -
 ```

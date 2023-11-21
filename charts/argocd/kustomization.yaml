@@ -3,4 +3,4 @@ kind: Kustomization
 
 # make sure namespace exists
 resources:
--  ./overlays/prod
+  - ./overlays/prod
