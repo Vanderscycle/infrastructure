@@ -8,7 +8,6 @@ resources:
   - argocd.yaml
   - argocd-repo.yaml
   # - ./charts/Chart.yaml
-
 # helmCharts:
 # - name: argo
 #   version: 5.34.6

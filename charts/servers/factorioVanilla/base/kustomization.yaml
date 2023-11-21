@@ -4,16 +4,16 @@ kind: Kustomization
 namespace: factorio-vanilla
 
 resources:
-- namespace.yaml
+  - namespace.yaml
 # - secrets
 
 helmCharts:
-- name: factorio-server-charts
-  version: 1.2.3
-  repo: https://sqljames.github.io/factorio-server-charts/
-  valuesFile: values.yaml
-  namespace: factorio-vanilla
-  releaseName: vanilla
+  - name: factorio-server-charts
+    version: 1.2.3
+    repo: https://sqljames.github.io/factorio-server-charts/
+    valuesFile: values.yaml
+    namespace: factorio-vanilla
+    releaseName: vanilla
 
 patchesStrategicMerge:
   - patches/svc.yaml

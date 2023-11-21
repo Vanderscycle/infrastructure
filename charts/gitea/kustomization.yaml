@@ -7,9 +7,9 @@ resources:
   - ./secrets
 
 helmCharts:
-- name: gitea
-  version: 6.0.3
-  repo: https://dl.gitea.io/charts 
-  valuesFile: values.yaml
-  namespace: gitea
-  releaseName: git
+  - name: gitea
+    version: 6.0.3
+    repo: https://dl.gitea.io/charts
+    valuesFile: values.yaml
+    namespace: gitea
+    releaseName: git

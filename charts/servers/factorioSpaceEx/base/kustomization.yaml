@@ -5,7 +5,7 @@ namespace: factorio-space
 # make sure namespace exists
 
 resources:
-# - factorio-ingress.yaml
+  # - factorio-ingress.yaml
   - namespace.yaml
   - secrets
 
