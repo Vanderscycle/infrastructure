@@ -71,7 +71,7 @@ account:
 
 serverPassword:
   # password required to log into the factorio server
-  game_password: ""
+  # game_password: ""
   # Existing Secret containing a `game_password` data entry
   passwordSecret: "factorio-admin-secret"
 
