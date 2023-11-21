@@ -10,8 +10,14 @@ set -xg KUBECONFIG $HOME/.kube/infrastructure-kubeconfig.yaml
 2. kustomize build --load-restrictor LoadRestrictionsNone --enable-helm . | k apply -f -
 3. change the password https://argo-cd.readthedocs.io/en/stable/getting_started/
 4. add the github repo
-5. fetch sealed secret key kubeseal --fetch-pem > kubeseal-public.pem
-
+5. fetch cluster kubeseal perms
+```
+ kubectl get secret -n kube-system -l sealedsecrets.bitnami.com/sealed-secrets-key -o jsonpath="{.items[*].data['tls\.crt']}" | base64 --decode > kubeseal-public.pem
+```
+6. reseal all the secrets:
+```
+kubeseal --format yaml --cert='../../../../../kubeseal-public.pem' < secret.yaml > sealed-secret.yaml
+```
 ## Cloud
 
 Using Linode to host
