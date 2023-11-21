@@ -7,12 +7,9 @@ resource "linode_domain" "domain" {
   tags = var.tags
 }
 
-# resource "linode_domain_record" "mx" {
-#   for_each   = var.mx_record
-
-#   domain_id  = linode_domain.domain[each.key].id
-#   record_type = "MX"
-#   name       = each.value.subdomain
-#   target     = "${each.value.subdomain}.${var.domain}"
-#   priority   = each.value.preference
+# resource "linode_domain_record" "foobar" {
+#     domain_id = linode_domain.domain.id
+#     name = "nextcloud"
+#     record_type = "AAAA"
+#     target = "vandersleyen.dev"
 # }
