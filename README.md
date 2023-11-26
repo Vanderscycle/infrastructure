@@ -42,4 +42,7 @@ progress on 3d printer
 later:
 figure out the rpi cluster
 
-For nextcloud to work in production we want to have a db associated with it.
+- [ ] For nextcloud to work in production we want to have a db associated with it.
+- [ ] add a kustomize replace for all of argocd apps for prod/non-prod
+- [ ] create sealed-secrets for postgres dbs (this repo + 3d printer )
+- [ ] create a test chart to quickly test new dns names
