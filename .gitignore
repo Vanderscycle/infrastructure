@@ -43,3 +43,7 @@ terraform.rc
 
 # Ignore Terragrunt cache
 .terragrunt-cache/
+
+
+# Javascripts
+**/dist
