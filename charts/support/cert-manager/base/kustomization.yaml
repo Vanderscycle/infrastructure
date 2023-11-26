@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - https://github.com/cert-manager/cert-manager/releases/download/v1.11.0/cert-manager.crds.yaml
   - certificates
+  - secrets
 
 helmCharts:
   - name: cert-manager
