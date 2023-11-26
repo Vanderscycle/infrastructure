@@ -14,7 +14,7 @@ set -xg KUBECONFIG $HOME/.kube/infrastructure-kubeconfig.yaml
 ```
  kubectl get secret -n kube-system -l sealedsecrets.bitnami.com/sealed-secrets-key -o jsonpath="{.items[*].data['tls\.crt']}" | base64 --decode > kubeseal-public.pem
 ```
-6. reseal all the secrets:
+6. reseal all the secrets :
 ```
 kubeseal --format yaml --cert='../../../../../kubeseal-public.pem' < secret.yaml > sealed-secret.yaml
 ```
@@ -41,3 +41,5 @@ progress on 3d printer
 
 later:
 figure out the rpi cluster
+
+For nextcloud to work in production we want to have a db associated with it.
