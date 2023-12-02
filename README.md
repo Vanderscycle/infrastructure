@@ -47,3 +47,5 @@ figure out the rpi cluster
 - [ ] create sealed-secrets for postgres dbs (this repo + 3d printer )
 - [ ] create a test chart to quickly test new dns names
 - [ ] something like uptime-kuma to check that the dns pages are live. Maybe there's something like new relic but free.
+
+- [ ] update profesional-website namespace + format (kustomize)

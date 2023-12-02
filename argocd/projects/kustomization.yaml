@@ -8,4 +8,5 @@ resources:
   - project-support.yaml
   # - project-monitoring.yaml
   - project-cloud.yaml
+  - project-websites.yaml
   # - project-argocd.yaml
