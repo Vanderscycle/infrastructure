@@ -17,5 +17,6 @@ spec:
     - group: "*"
       kind: "*"
   sourceRepos:
-    - git@github.com:Vanderscycle/infrastructure.git
-    - git@github.com:Vanderscycle/Professional-website.git
+    - "*"
+    # - git@github.com:Vanderscycle/infrastructure.git
+    # - git@github.com:Vanderscycle/Professional-website.git
