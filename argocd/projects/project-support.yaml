@@ -21,5 +21,6 @@ spec:
     - group: "*"
       kind: "*"
   sourceRepos:
-    - git@github.com:Vanderscycle/infrastructure.git
-    - https://github.com/bitnami-labs/sealed-secrets
+    - "*"
+    # - git@github.com:Vanderscycle/infrastructure.git
+    # - https://github.com/bitnami-labs/sealed-secrets

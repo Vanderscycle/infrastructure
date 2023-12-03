@@ -8,6 +8,7 @@ metadata:
 spec:
   description: Infrastructure declarative config for drone ci
   destinations:
+
     - namespace: argocd
       server: https://kubernetes.default.svc
     - namespace: kube-system
@@ -16,4 +17,4 @@ spec:
     - group: "*"
       kind: "*"
   sourceRepos:
-    - git@github.com:Vanderscycle/infrastructure.git
+    - "*"
