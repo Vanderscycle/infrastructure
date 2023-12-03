@@ -4,13 +4,14 @@ metadata:
   name: application-argocd
   namespace: argocd
 spec:
+  destination:
+    namespace: argocd
+    server: https://kubernetes.default.svc
+  project: applications
   source:
     path: argocd/apps/argocd
     repoURL: git@github.com:Vanderscycle/infrastructure.git
     targetRevision: main
-  destination:
-    namespace: argocd
-    server: https://kubernetes.default.svc
   syncPolicy:
     automated:
       selfHeal: true
