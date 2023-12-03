@@ -8,6 +8,7 @@ spec:
     path: argocd/projects
     repoURL: git@github.com:Vanderscycle/infrastructure.git
     targetRevision: main
+  project: applications
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd

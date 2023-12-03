@@ -7,7 +7,7 @@ spec:
   destination:
     namespace: argocd
     server: https://kubernetes.default.svc
-  project: applications
+  # project: applications
   source:
     path: argocd/apps/servers
     repoURL: git@github.com:Vanderscycle/infrastructure.git
