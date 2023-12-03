@@ -5,4 +5,4 @@ namespace: argocd
 
 resources:
   - ../../base
-  - ../../projects
+  # - ../../projects
