@@ -10,14 +10,15 @@ spec:
   destinations:
     - namespace: '*'
       server: '*'
-    - namespace: nextcloud
-      server: https://kubernetes.default.svc
-    - namespace: postgres
-      server: https://kubernetes.default.svc
-    - namespace: kube-system
-      server: https://kubernetes.default.svc
+    # - namespace: nextcloud
+    #   server: https://kubernetes.default.svc
+    # - namespace: postgres
+    #   server: https://kubernetes.default.svc
+    # - namespace: kube-system
+    #   server: https://kubernetes.default.svc
   clusterResourceWhitelist:
     - group: "*"
       kind: "*"
   sourceRepos:
-    - git@github.com:Vanderscycle/infrastructure.git
+    - "*"
+    # - git@github.com:Vanderscycle/infrastructure.git

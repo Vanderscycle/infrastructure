@@ -8,14 +8,16 @@ metadata:
 spec:
   description: A game server project
   destinations:
-    - namespace: factorio
-      server: https://kubernetes.default.svc
-    - namespace: factorio-space
-      server: https://kubernetes.default.svc
-    - namespace: factorio-vanilla
-      server: https://kubernetes.default.svc
-    - namespace: kube-system
-      server: https://kubernetes.default.svc
+    - namespace: "*"
+      server: "*"
+    # - namespace: factorio
+    #   server: https://kubernetes.default.svc
+    # - namespace: factorio-space
+    #   server: https://kubernetes.default.svc
+    # - namespace: factorio-vanilla
+    #   server: https://kubernetes.default.svc
+    # - namespace: kube-system
+    #   server: https://kubernetes.default.svc
   clusterResourceWhitelist:
     - group: "*"
       kind: "*"
