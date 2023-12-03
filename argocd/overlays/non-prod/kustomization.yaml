@@ -7,11 +7,11 @@ resources:
   - ../../base
 
 # kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
-patches:
-  - patch: |-
-      - op: replace
-        path: /spec/source/targetRevision
-        value: main
-    target:
-      kind: Application
-      name: .*
+# patches:
+#   - patch: |-
+#       - op: replace
+#         path: /spec/source/targetRevision
+#         value: main
+#     target:
+#       kind: Application
+#       name: .*
