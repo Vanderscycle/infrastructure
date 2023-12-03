@@ -7,7 +7,7 @@ commonLabels:
 namespace: argocd
 
 resources:
-  # - application-root.yaml # argocd
+  - application-root.yaml
   - application-servers.yaml
   # - application-monitoring.yaml
   - application-cloud.yaml
