@@ -12,7 +12,7 @@ resources:
   # - application-monitoring.yaml
   - application-cloud.yaml
   - application-secrets.yaml
-  # - application-projects.yaml
+  - application-projects.yaml
   - application-support.yaml
   # - application-argocd.yaml
   - application-websites.yaml
