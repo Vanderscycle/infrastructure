@@ -10,7 +10,7 @@ spec:
     server: https://kubernetes.default.svc
   project: websites
   source:
-    path: k8s/website/frontend
+    path: manifests/overlays/non-prod
     repoURL: git@github.com:Vanderscycle/Professional-website.git
     targetRevision: complete-refacotr
     # targetRevision: main
