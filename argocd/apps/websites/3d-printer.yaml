@@ -11,7 +11,7 @@ spec:
   project: websites
   source:
     path: manifests/overlays/non-prod
-    repoURL: git@github.com:Vanderscycle/Professional-website.git
+    repoURL: git@github.com:Vanderscycle/3D-Printer-Exchange.git
     targetRevision: main
   syncPolicy:
     automated:
