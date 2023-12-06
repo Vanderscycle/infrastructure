@@ -3,4 +3,4 @@ kind: Kustomization
 
 resources:
   - professional-website.yaml
-  # - 3d-printer.yaml
+  - 3d-printer.yaml
