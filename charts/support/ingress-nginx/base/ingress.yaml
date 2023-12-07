@@ -20,14 +20,14 @@ spec:
                   number: 8080
             path: "/"
             pathType: Prefix
-    - host: argocd.vandersleyen.dev
+    - host: me.vandersleyen.dev
       http:
         paths:
           - backend:
               service:
-                name: argocd-server.argocd
+                name: professional-web-frontend.professional-web-frontend
                 port:
-                  number: 80
+                  number: 3000
             path: "/"
             pathType: Prefix
   tls:
@@ -35,5 +35,5 @@ spec:
         - nextcloud.vandersleyen.dev
       secretName: nextcloud-tls
     - hosts:
-        - argocd.vandersleyen.dev
-      secretName: argocd-tls
+        - me.vandersleyen.dev
+      secretName: professional-website-tls
