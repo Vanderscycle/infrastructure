@@ -1,7 +1,7 @@
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: letsencrypt-cluster-issues-non-prod
+  name: letsencrypt-cluster-issuer-non-prod
 spec:
   acme:
     email: henri-vandersleyen@protonmail.com
