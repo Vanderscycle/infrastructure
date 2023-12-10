@@ -7,7 +7,7 @@ rcon:
 #
 resources:
   requests:
-    cpu: 500m
+    cpu: 1
 
 # making sure the game doesnt auto update on redeploy
 # https://hub.docker.com/r/factoriotools/factorio/
