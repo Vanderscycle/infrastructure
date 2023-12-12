@@ -20,3 +20,16 @@ helmCharts:
 patchesStrategicMerge:
   - patches/svc.yaml
   - patches/deploy.yaml
+
+
+patches:
+  - target:
+      kind: Deployment
+      name: space-factorio-server-charts
+    patch: |-
+      - op: add
+        path: /metadata/annotations
+        value:
+          keel.sh/policy: force
+          keel.sh/trigger: poll
+          keel.sh/pollSchedule: "@every 10m"
