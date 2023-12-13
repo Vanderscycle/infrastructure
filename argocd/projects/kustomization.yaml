@@ -10,5 +10,5 @@ resources:
   - project-support.yaml
   - project-cloud.yaml
   - project-websites.yaml
-  # - project-monitoring.yaml
+  - project-monitoring.yaml
   # - project-argocd.yaml
