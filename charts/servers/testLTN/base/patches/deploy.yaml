@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: space-factorio-server-charts
+spec:
+  template:
+    spec:
+      containers:
+        - name: space-factorio-server-charts
+          ports:
+            - containerPort: 27015
+              name: http
+              protocol: TCP
