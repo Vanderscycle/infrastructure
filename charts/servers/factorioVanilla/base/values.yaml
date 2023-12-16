@@ -50,6 +50,13 @@ server_settings:
     public: true
   require_user_verification: true
 
+mods:
+  enabled: true
+  # in order to use the mods portal you will need to specify the username and token in the server_settings.
+  # name is determined by the url, it will be the last part of the url, not the title of the mod.
+  portal:
+    - LogisticTrainNetwork
+
 account:
   # Existing secret containing a valid factorio.com username and either a password or a token
   # Example:
@@ -74,7 +81,7 @@ serverPassword:
   # password required to log into the factorio server
   game_password: "test"
   # Existing Secret containing a `game_password` data entry
-  passwordSecret: "factorio-admin-secret"
+  passwordSecret: "vanilla-factorio-admin-secret"
 
 mods:
   enabled: false
