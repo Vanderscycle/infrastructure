@@ -3,4 +3,4 @@ kind: Kustomization
 
 resources:
   - factorioSpaceEx.yaml
-  - factorioVanilla.yaml
+  # - factorioVanilla.yaml
