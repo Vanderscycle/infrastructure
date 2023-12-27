@@ -102,7 +102,7 @@ datadog:
   ## * Overall length should not be higher than 80 characters.
   ## Compared to the rules of GKE, dots are allowed whereas they are not allowed on GKE:
   ## https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1beta1/projects.locations.clusters#Cluster.FIELDS.name
-  clusterName: # <CLUSTER_NAME>
+  clusterName: "non-prod-ca-central-linode" # <CLUSTER_NAME>
 
   # datadog.site -- The site of the Datadog intake to send Agent data to.
   # (documentation: https://docs.datadoghq.com/getting_started/site/)
@@ -993,7 +993,9 @@ clusterAgent:
 
   ## The Cluster-Agent supports many additional environment variables
   ## ref: https://docs.datadoghq.com/agent/cluster_agent/commands/#cluster-agent-options
-  env: []
+  env:
+    - name: "DD_ORCHESTRATOR_EXPLORER_EXTRA_TAGS"
+      value: "tag1:value1 tag2:value2"
 
   # clusterAgent.envFrom --  Set environment variables specific to Cluster Agent from configMaps and/or secrets
 
@@ -1478,7 +1480,9 @@ agents:
 
     processAgent:
       # agents.containers.processAgent.env -- Additional environment variables for the process-agent container
-      env: []
+      env:
+        - name: "DD_ORCHESTRATOR_EXPLORER_EXTRA_TAGS"
+          value: "tag1:value1 tag2:value2"
 
       # agents.containers.processAgent.envFrom -- Set environment variables specific to process-agent from configMaps and/or secrets
       envFrom: []
