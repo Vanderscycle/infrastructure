@@ -35,6 +35,7 @@
 ```
 
 A good argocd app folder using dns:
+
 ```
  ❯ tree  -L 3 cloud/nextcloud/
 cloud/nextcloud/

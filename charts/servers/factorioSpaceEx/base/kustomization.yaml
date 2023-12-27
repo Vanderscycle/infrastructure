@@ -21,7 +21,6 @@ patchesStrategicMerge:
   - patches/svc.yaml
   - patches/deploy.yaml
 
-
 patches:
   - target:
       kind: Deployment

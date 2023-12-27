@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: uptime-kuma
 
 resources:
-- certificate.yaml
+  - certificate.yaml
 
 commonLabels:
   app.kubernetes.io/name: uptime-kuma
