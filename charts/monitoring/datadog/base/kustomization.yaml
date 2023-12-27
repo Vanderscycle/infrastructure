@@ -5,6 +5,7 @@ namespace: datadog
 
 resources:
 # - certificate.yaml
+  - secrets
 
 commonLabels:
   app.kubernetes.io/name: datadog
