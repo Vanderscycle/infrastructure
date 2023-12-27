@@ -113,7 +113,7 @@ datadog:
   ## Set to 'us5.datadoghq.com' to send data to the US5 site.
   ## Set to 'ddog-gov.com' to send data to the US1-FED site.
   ## Set to 'ap1.datadoghq.com' to send data to the AP1 site.
-  site: # datadoghq.com
+  site: us3.datadoghq.com
 
   # datadog.dd_url -- The host of the Datadog intake server to send Agent data to, only set this option if you need the Agent to send data to a custom URL
 
@@ -469,7 +469,7 @@ datadog:
     # This feature is in beta. It requires Cluster Agent 7.49+.
     instrumentation:
       # datadog.apm.instrumentation.enabled -- Enable injecting the Datadog APM libraries into all pods in the cluster (beta).
-      enabled: false
+      enabled: true
 
       # datadog.apm.instrumentation.enabledNamespaces -- Enable injecting the Datadog APM libraries into pods in specific namespaces (beta).
       enabledNamespaces: []
