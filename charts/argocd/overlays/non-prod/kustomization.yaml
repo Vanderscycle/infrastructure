@@ -26,3 +26,61 @@ patches:
       - op: replace
         path: /spec/type
         value: "LoadBalancer"
+  - target:
+      kind: Deployment
+      name: argocd-applicationset-controller
+      namespace: argocd
+      version: v1
+    patch: |-
+      - op: add
+        path: /metadata/annotations/ad.datadoghq.com~1argocd-application-controller.checks
+        value: |
+          {
+            "argocd": {
+              "init_config": {},
+              "instances": [
+                {
+                  "app_controller_endpoint": "http://%%host%%:8082/metrics"
+                }
+              ]
+            }
+          }
+  - target:
+      kind: Deployment
+      name: argocd-server
+      namespace: argocd
+      version: v1
+    patch: |-
+      - op: add
+        path: /metadata/annotations/ad.datadoghq.com~1argocd-server.checks
+        value: |
+          {
+            "argocd": {
+              "init_config": {},
+              "instances": [
+                {
+                  "api_server_endpoint": "http://%%host%%:8083/metrics"
+                }
+              ]
+            }
+          }
+
+  - target:
+      kind: Deployment
+      name: argocd-repo-server
+      namespace: argocd
+      version: v1
+    patch: |-
+      - op: add
+        path: /metadata/annotations/ad.datadoghq.com~1argocd-repo-server.checks
+        value: |
+          {
+            "argocd": {
+              "init_config": {},
+              "instances": [
+                {
+                  "repo_server_endpoint": "http://%%host%%:8084/metrics"
+                }
+              ]
+            }
+          }
