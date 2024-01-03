@@ -834,7 +834,7 @@ datadog:
   # If a container matches an include rule, it’s always included in Autodiscovery
 
   ## ref: https://docs.datadoghq.com/agent/guide/autodiscovery-management/?tab=containerizedagent#include-containers
-  containerInclude:
+  containerInclude: ["image:factoriotools", "image:vandercycle" ]
 
   # datadog.containerExcludeLogs -- Exclude logs from Agent Autodiscovery, as a space-separated list
   containerExcludeLogs:
