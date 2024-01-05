@@ -86,8 +86,73 @@ The beast
 #+CAPTION: Components of Kubernetes
 #+NAME: fig:kubernetes-components
 [[https://kubernetes.io/images/docs/components-of-kubernetes.svg]]
+- Cluster:
+   * A set of nodes that run containerized applications.
+   * Manages the communication and resource allocation between nodes.
+
+- Node:
+   * A worker machine in Kubernetes (either a VM or a physical machine).
+   * Runs the applications using Pods.
+
+- Pod:
+   * The smallest deployable unit in Kubernetes.
+   * Contains one or more containers that share storage, network, and specifications on how to run the containers.
+
+- Namespace:
+   * A virtual cluster within a Kubernetes cluster.
+   * Used to organize objects in the cluster and provide a scope for names.
+
+- etcd:
+   * A consistent and highly-available key-value store.
+   * Used as Kubernetes' backing store for all cluster data.
+
+- Scheduler:
+   * Assigns newly created pods to nodes.
+   * Considers resource availability, constraints, and load balancing across nodes.
+
+- Control Plane:
+   * The container orchestration layer that exposes the API and interfaces for managing the lifecycle of containers.
+   * Makes global decisions about the cluster and reacts to cluster events.
 
 **** Manifests
+
+Here's an example of a deployment, see how it resembles the docker-compose set-up
+
+#+begin_src yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: professional-web-frontend
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    spec:
+      containers:
+        - name: website
+          image: vandercycle/professional-website:latest
+          resources:
+            requests:
+              cpu: 300m
+              memory: 256Mi
+            limits:
+              memory: 256Mi
+          ports:
+            - name: http
+              containerPort: 3000
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3000
+              scheme: HTTP
+            initialDelaySeconds: 5
+            timeoutSeconds: 1
+      volumes:
+        - name: config-volume
+          configMap: 
+            name: professional-web-frontend-cm
+#+end_src
 **** Helm
 
 Writing yaml everytime you want to run a container is boilerplate hell so we use helm to import, import and run pre-packaged kubernetes files.
@@ -130,7 +195,7 @@ This is the overlays for my website.
 #+end_src
 
 An example of patching a deployment so that another service, keel, can check if there's a new latest for non-prod environments. Prod
-#+begin_src bash
+#+begin_src yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
@@ -152,29 +217,29 @@ patches:
 
 We can also use kustomize to better organize our files and declaratively specify helm charts (sometimes doesn't work).
 
-#+begin_src bash
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
+#+begin_src yaml
+  apiVersion: kustomize.config.k8s.io/v1beta1
+  kind: Kustomization
 
-namespace: cafe-crochet-website-cms
+  namespace: 3d-printer-website-postgres-db
 
-commonLabels:
-    app.kubernetes.io/component: cms
-    app.kubernetes.io/instance: directus
-    app.kubernetes.io/name: directus-cms
-    app.kubernetes.io/part-of: cafe-crochet
+  commonLabels:
+      app.kubernetes.io/component: databases
+      app.kubernetes.io/instance: postgres
+      app.kubernetes.io/name: postgres
+      app.kubernetes.io/part-of: printer-exchange
 
-resources:
-- namespace.yaml
-# - secrets
+  resources:
+  - namespace.yaml
+  - secrets
 
-helmCharts:
-- name: directus
-  version: 0.7.34
-  repo: https://digitalist-se.github.io/directus-helm-chart/
-  valuesFile: values.yaml
-  namespace: cafe-crochet-website-cms
-  releaseName: cms
+  helmCharts:
+  - name: postgresql
+    version: 13.2.4
+    repo: https://charts.bitnami.com/bitnami
+    valuesFile: values.yaml
+    namespace: 3d-printer-website-postgres-db
+    releaseName: db
 #+end_src
 
 **** Sealed secrets
