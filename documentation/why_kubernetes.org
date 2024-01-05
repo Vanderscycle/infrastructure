@@ -1,0 +1,211 @@
+#+TITLE: Kubernetes Documentation
+#+author: Henri Vandersleyen
+#+date:   2024-01-05
+
+* Kubernetes
+** The shipping problem
+
+Manually creating and configuring servers is tiresome, slow and human error prone.
+As devops engineer, we want to be explicit as to how a certain application is configured So we use Docker containers to declaratively describe and build our application.
+
+So in increasing levels of complexity:
+
+*** Docker
+
+#+begin_src bash
+docker run --name custom_postgres_container -e POSTGRES_DB=your_db_name -e POSTGRES_USER=your_username -e POSTGRES_PASSWORD=your_password -p 5433:5432 -v postgres_data:/var/lib/postgresql/data -d postgres:latest
+docker run --name custom_pgadmin_container -e PGADMIN_DEFAULT_EMAIL=admin@admin.com -e PGADMIN_DEFAULT_PASSWORD=admin -p 5050:80 --link custom_postgres_container:postgres -d dpage/pgadmin4:latest
+#+end_src
+
+Main advantages:
+- get services up and running in a few seconds
+Main disavantages:
+- very manual
+- other than the Dockerfile, there is no explicit configuration
+
+*** Docker-compose
+
+When there is more than one container to orchestrate, we may initialy turn to docker-compose to orchestrate the deployment but a main downside
+
+#+begin_src yaml
+version: '3.8'
+
+services:
+  postgres:
+    container_name: custom_postgres_container
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: your_db_name
+      POSTGRES_USER: your_username
+      POSTGRES_PASSWORD: your_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    restart: always
+
+  pgadmin:
+    container_name: custom_pgadmin_container
+    image: dpage/pgadmin4:latest
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    restart: always
+
+volumes:
+  postgres_data:
+
+#+end_src
+
+A solution is to use a cron job to check on the container status
+=* * * * * docker ps | grep -q custom_postgres_container || docker start custom_postgres_container=
+
+Main advantages:
+- quick and simple to set-up
+- low barrier of entry
+- great for small scale/prototyping
+Main disavantages:
+- unable to restart container
+- Single host only
+
+*** Docker Swarm
+
+We will not go into too many details, just be aware that it exists and that its a more resilient orchestration tool compared to docker-compose, but less feature rich than kubernetes.
+[[https://docs.docker.com/engine/swarm/][Docker swarm documentation]]
+
+*** Kubernetes
+
+The beast
+
+**** Basics
+
+#+CAPTION: Components of Kubernetes
+#+NAME: fig:kubernetes-components
+[[https://kubernetes.io/images/docs/components-of-kubernetes.svg]]
+
+**** Manifests
+**** Helm
+
+Writing yaml everytime you want to run a container is boilerplate hell so we use helm to import, import and run pre-packaged kubernetes files.
+
+Every good helm charts can be modified with a values.yaml file. Please check the specifics on artifacthub.io
+#+begin_src bash
+    helm repo add bitnami https://charts.bitnami.com/bitnami
+    helm install my-postgresql bitnami/postgresql --version 13.2.27 -f /path/to/your/values.yaml
+#+end_src
+
+[[https://artifacthub.io/][Artifact Hub]]
+
+**** Kustomize
+
+Should you have a k8s deployment that requires changes between environments such as localhost, non-prod and prod you can use kustomize to "patch" the manifests.
+So instead of having 3 different copies of a kubernetes service we use leverage kustomize to overlay the patches.
+
+This is the overlays for my website.
+
+
+#+begin_src bash
+❯ tree
+.
+├── base
+│   ├── certificate.yaml
+│   ├── configmap.yaml
+│   ├── deployment.yaml
+│   ├── ingress.yaml
+│   ├── kustomization.yaml
+│   ├── namespace.yaml
+│   ├── rolebinding.yaml
+│   ├── role.yaml
+│   ├── serviceaccount.yaml
+│   └── service.yaml
+└── overlays
+    ├── non-prod
+    │   └── kustomization.yaml
+    └── prod
+        └── kustomization.yaml
+#+end_src
+
+An example of patching a deployment so that another service, keel, can check if there's a new latest for non-prod environments. Prod
+#+begin_src bash
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base
+
+patches:
+  - target:
+      kind: Deployment
+      name: professional-web-frontend
+    patch: |-
+      - op: add
+        path: /metadata/annotations
+        value:
+          keel.sh/policy: force
+          keel.sh/trigger: poll
+          keel.sh/pollSchedule: "@every 10m"
+#+end_src
+
+We can also use kustomize to better organize our files and declaratively specify helm charts (sometimes doesn't work).
+
+#+begin_src bash
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: cafe-crochet-website-cms
+
+commonLabels:
+    app.kubernetes.io/component: cms
+    app.kubernetes.io/instance: directus
+    app.kubernetes.io/name: directus-cms
+    app.kubernetes.io/part-of: cafe-crochet
+
+resources:
+- namespace.yaml
+# - secrets
+
+helmCharts:
+- name: directus
+  version: 0.7.34
+  repo: https://digitalist-se.github.io/directus-helm-chart/
+  valuesFile: values.yaml
+  namespace: cafe-crochet-website-cms
+  releaseName: cms
+#+end_src
+
+**** Sealed secrets
+
+We can store a private key in our cluster to encrypt all secrets so that they may be safely stored in our public repos.
+
+**** Argocd
+
+Allows you to use GitOps patterns to pull directly form your repos. Also provides an amazing ui to make sense of your stack.
+
+** Resources
+*** Localhost development
+- [[https://tilt.dev/][Tilt]] tool that help with developing microservices locally
+- [[https://minikube.sigs.k8s.io/docs/start/][minikube]] is the easiest tool to mimic a localhost cluster
+- [[https://kind.sigs.k8s.io/][kind]] more advanced than minikube but allows use to use docker containers like they are kubernetes node
+
+*** Important tools
+- [[https://k9scli.io/][k9s]] A TUI tool to inspect containers
+
+*** Cloud providers
+Here's a non exhaustive list
+- Aws Elastic Kubernetes Service (EKS)
+- Google Kubernetes Engine (GKE)
+- Azure Kubernetes Service (AKS)
+- Linode Kubernetes Engines (LKE) is what I use
+
+Using kubernetes, you can also use raspberry pi in a cluster to run kubernetes.
+*** A tour of my cluster
+
+*** Youtube resources
+- [[https://www.youtube.com/watch?v=s_o8dwzRlu4][TechWorld with Nana]] is an amazing teacher, and her youtube videos on devops and kubernetes are amazing.
+- [https://www.youtube.com/@MarcelDempers][Marcel Dempers]] videos are a little more advanced but they cover important services like cert-manager, dns, etc.
+
+** Conclusion
