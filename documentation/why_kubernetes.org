@@ -150,7 +150,7 @@ spec:
             timeoutSeconds: 1
       volumes:
         - name: config-volume
-          configMap: 
+          configMap:
             name: professional-web-frontend-cm
 #+end_src
 **** Helm
