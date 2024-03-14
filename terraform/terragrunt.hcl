@@ -3,24 +3,24 @@
 
 locals {
 
-  cloud_provider  = split("/", path_relative_to_include())[1]
-  region  = split("/", path_relative_to_include())[2]
-  env     = split("/", path_relative_to_include())[3]
+  cloud_provider = split("/", path_relative_to_include())[1]
+  region         = split("/", path_relative_to_include())[2]
+  env            = split("/", path_relative_to_include())[3]
 
 
   path_to_common  = replace(get_terragrunt_dir(), "env/${local.cloud_provider}/", "env/common")
   path_to_tfstate = replace(path_relative_to_include(), "env/${local.cloud_provider}/", "")
-  default_token = ""
+  default_token   = ""
 }
 
 #
 # Inject environment and region specific values as TF_VAR environment variables.
 #
 inputs = {
-  env         = local.env
-  region      = local.region
-  cloud_provider      = local.cloud_provider
-  LINODE_TOKEN = get_env("LINODE_TOKEN", local.default_token)
+  env            = local.env
+  region         = local.region
+  cloud_provider = local.cloud_provider
+  LINODE_TOKEN   = get_env("LINODE_TOKEN", local.default_token)
 }
 
 #
@@ -59,7 +59,7 @@ generate "config" {
   contents  = <<EOF
     terraform {
 
-      required_version = ">= 1.3.0"
+      required_version = ">= 1.6.4"
 
       # cloud {
       #   hostname     = "app.terraform.io"
@@ -72,25 +72,24 @@ generate "config" {
       required_providers {
         linode = {
           source  = "linode/linode"
-          version = "1.30.0"
+          version = ">= 2.16.0"
         }
       }
     }
-  EOF
+EOF
 }
 generate "provider" {
-  path = "provider.tf"
+  path      = "provider.tf"
   if_exists = "skip"
   contents  = <<EOF
   provider "linode" {
     token = var.LINODE_TOKEN
-
   }
-  EOF
+EOF
 }
 generate "tfvars" {
-  path      = "terragrunt.auto.tfvars.json"
-  if_exists = "overwrite"
+  path              = "terragrunt.auto.tfvars.json"
+  if_exists         = "overwrite"
   disable_signature = true
-  contents = jsonencode({name = "your-name"})
+  contents          = jsonencode({ name = "your-name" })
 }
