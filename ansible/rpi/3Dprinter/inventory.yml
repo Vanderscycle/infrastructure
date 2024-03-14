@@ -1,7 +1,0 @@
-printer:
-  hosts:
-    v-minion:
-      ansible_user: pi
-      ansible_become: true
-      ansible_host: "192.168.1.154"
-      ansible_ssh_pass: "pi"
