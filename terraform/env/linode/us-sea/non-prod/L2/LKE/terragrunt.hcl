@@ -3,5 +3,5 @@ include "root" {
 }
 
 terraform {
-  source = "${get_path_to_repo_root()}terraform//stacks/linode/L2/LKE"
+  source = "${get_path_to_repo_root()}/terraform/stacks/linode/L2/LKE"
 }

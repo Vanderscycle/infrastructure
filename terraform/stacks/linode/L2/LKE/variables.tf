@@ -21,18 +21,12 @@ variable "lke_label" {
 }
 variable "k8s_version" {
   description = "The desired Kubernetes version for this Kubernetes cluster."
-  default     = "1.27"
-  type        = string
-}
-variable "lke_region" {
-  description = "This Kubernetes cluster's location"
-  default     = "ca-central"
   type        = string
 }
 
 variable "linode_instances_type" {
   description = "Linode Type for all of the nodes in the Node Pool."
-  default     = "g6-standard-2"
+  default     = "g6-standard-1"
   type        = string
 }
 

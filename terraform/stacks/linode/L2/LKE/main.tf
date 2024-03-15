@@ -5,7 +5,7 @@ locals {
 resource "linode_lke_cluster" "infrastructure" {
   label       = local.name
   k8s_version = var.k8s_version
-  region      = var.lke_region
+  region      = var.region
   tags        = var.tags
 
   pool {
