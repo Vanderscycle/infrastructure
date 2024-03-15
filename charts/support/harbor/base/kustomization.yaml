@@ -10,6 +10,7 @@ kind: Kustomization
 # find how to use one load balancer accross multiple services
 # resources:
 #   - ingress.yaml
+namespace: harbor
 
 helmCharts:
   - name: harbor
