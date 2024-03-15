@@ -6,4 +6,4 @@ resources:
   - cert-manager.yaml
   - ingress-nginx.yaml
   - keel.yaml
-  - harbor.yaml
+  #- harbor.yaml
