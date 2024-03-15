@@ -10,7 +10,7 @@ resources:
   - application-root.yaml
   # - application-servers.yaml
   - application-monitoring.yaml
-  - application-cloud.yaml
+  # - application-cloud.yaml
   - application-secrets.yaml
   - application-projects.yaml
   - application-support.yaml
