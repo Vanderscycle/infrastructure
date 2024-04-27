@@ -47,3 +47,7 @@ terraform.rc
 
 # Javascripts
 **/dist
+
+# other
+encryption.py
+**/*secrets.yml

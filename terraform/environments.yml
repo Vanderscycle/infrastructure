@@ -1,0 +1,6 @@
+root:
+  account_id: "975050082671"
+non-prod:
+  account_id: "471112966897"
+prod:
+  account_id: ""

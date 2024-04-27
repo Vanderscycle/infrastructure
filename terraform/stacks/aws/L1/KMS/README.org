@@ -1,0 +1,5 @@
+* AWS KMS
+** Pricing
+1$/month per KMS key
+** References
+- https://aws.amazon.com/kms/pricing/
