@@ -12,7 +12,7 @@ spec:
   source:
     chart: n8n
     repoURL: oci://8gears.container-registry.com/library/n8n
-    targetRevision: 0.23
+    targetRevision: 0.23.1
     helm:
       releaseName: n8n 
   syncPolicy:
