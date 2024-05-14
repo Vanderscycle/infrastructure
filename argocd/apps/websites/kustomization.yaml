@@ -2,6 +2,6 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - professional-website.yaml
+   - professional-website.yaml
   # - 3d-printer.yaml
-  - cafe-crochet.yaml
+  # - cafe-crochet.yaml

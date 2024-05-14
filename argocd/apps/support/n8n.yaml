@@ -10,9 +10,11 @@ spec:
     server: https://kubernetes.default.svc
   project: support
   source:
-    path: charts/support/n8n
-    repoURL: git@github.com:Vanderscycle/infrastructure.git
-    targetRevision: main
+    chart: n8n
+    repoURL: oci://8gears.container-registry.com/library/n8n
+    targetRevision: 0.23
+    helm:
+      releaseName: n8n 
   syncPolicy:
     automated:
       prune: true
