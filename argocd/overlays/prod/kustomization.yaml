@@ -5,4 +5,55 @@ namespace: argocd
 
 resources:
   - ../../base
-  # - ../../projects
+
+patches:
+
+  - patch: |-
+      - op: replace
+        path: /spec/source/path
+        value: argocd/apps/servers/overlays/prod
+    target:
+      kind: Application
+      name: application-servers
+  - patch: |-
+      - op: replace
+        path: /spec/source/path
+        value: argocd/apps/cloud/overlays/prod
+    target:
+      kind: Application
+      name: application-cloud
+  - patch: |-
+      - op: replace
+        path: /spec/source/path
+        value: argocd/apps/websites/overlays/prod
+    target:
+      kind: Application
+      name: application-websites
+  - patch: |-
+      - op: replace
+        path: /spec/source/path
+        value: argocd/apps/secrets/overlays/prod
+    target:
+      kind: Application
+      name: application-secrets
+  - patch: |-
+      - op: replace
+        path: /spec/source/path
+        value: argocd/apps/support/overlays/prod
+    target:
+      kind: Application
+      name: application-support
+  - patch: |-
+      - op: replace
+        path: /spec/source/path
+        value: argocd/apps/monitoring/overlays/prod
+    target:
+      kind: Application
+      name: application-monitoring
+  - patch: |-
+      - op: replace
+        path: /spec/source/path
+        value: argocd/overlays/prod
+    target:
+      kind: Application
+      name: application-root

@@ -14,5 +14,4 @@ resources:
   - application-secrets.yaml
   - application-projects.yaml
   - application-support.yaml
-  # - application-argocd.yaml
   - application-websites.yaml

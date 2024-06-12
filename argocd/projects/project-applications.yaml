@@ -3,28 +3,24 @@ kind: AppProject
 metadata:
   name: applications
   namespace: argocd
-  # finalizers:
-  # - resources-finalizer.argocd.argoproj.io
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
 spec:
   description: Project for parent applicatons used when employing app of apps
   destinations:
-    - namespace: '*'
-      server: '*'
-    # - namespace: argocd
-    #   server: https://kubernetes.default.svc
-    # - namespace: kube-system
-    #   server: https://kubernetes.default.svc
+    - namespace: argocd
+      server: https://kubernetes.default.svc
+    - namespace: kube-system
+      server: https://kubernetes.default.svc
   clusterResourceWhitelist:
-    - group: "*"
-      kind: "*"
-    # - group: 'argoproj.io'
-    #   kind: 'AppProject'
+    - group: 'argoproj.io'
+      kind: 'AppProject'
   namespaceResourceWhitelist:
-    - group: "*"
-      kind: "*"
-    # - group: "argoproj.io"
-    #   kind: Application
+    - group: "argoproj.io"
+      kind: Application
   sourceRepos:
-    - "*"
+    - "git@github.com:vancycles-industries/infrastructure.git"
   sourceNamespaces:
-    - "*"
+    - "argocd"
+    - "kube-system"
+
